@@ -1,19 +1,21 @@
-import ImageSource from '../assets/MediHealth.jpg'
+import ImageSource from '../assets/MediHealth.jpg';
+import './LandingPage.css'
 
 const  LandingPage = () => {
     return (
-        <div className="container">
-            <div>
-
+        <div className="content">
+            
+                <img src={ImageSource} alt="App illustration" />
+    
+            <div className="inner-content">
+                <h1> Welcome to Med-Health</h1>
+                <p>
+                    With our Dedicated Staff we offer  the best Hospital Service in Nigeria
+                    while don't you Register with us and find out more
+                </p>
+                <button>Register Now</button>
             </div>
-            <img src={ImageSource}  alt="App illustration"/>
-            <h1>Hello Welcome to MedHealth</h1>
-            <p>
-                    We are a health solutions provider with a mission to be the leading provider of 
-                    Health Tech Services in Nigeria and Africa at Large 
-                    Why don't you Register  and find out more 
-            </p>
-            <button>Login</button>
+           
         </div>
     )
 }

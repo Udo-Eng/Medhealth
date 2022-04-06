@@ -1,16 +1,16 @@
+import './Header.css'
+
 const Header = () => {
     return (
-        <div className="container">
-            <nav>
-                <p>Med-Health</p>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Login</a></li>
-                </ul>
-            </nav>
-        </div>
+        <header>
+            <p className="logo">Med-Health</p>
+                <ul className="navbar-list">
+                    <li className="navbar-item"><a href="#">Home</a></li>
+                    <li className="navbar-item"><a href="#">About</a></li>
+                    <li className="navbar-item" ><a href="#">Services</a></li>
+                </ul> 
+            <button className="cta">Login</button>
+        </header>
     )
 }
 

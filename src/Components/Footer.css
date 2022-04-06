@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+footer{
+    position:fixed;
+    left:0;
+    bottom:0;
+    width:100vw;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    background-color: #41ad2b;
+    padding: 1.5rem 2rem;
+    
+}
+
+footer p {
+    font-size: 1.2rem;
+    align-self: center;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
