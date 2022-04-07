@@ -1,5 +1,5 @@
-import ImageSource from '../assets/MediHealth.jpg';
-import './LandingPage.css'
+import ImageSource from '../../assets/MediHealth.jpg';
+import './index.css'
 
 const  LandingPage = () => {
     return (

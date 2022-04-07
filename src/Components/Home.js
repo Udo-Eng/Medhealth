@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Header from './Header.js'
-import Footer from './Footer.js'
-import LandingPage from './LandingPage.js'
+import Header from './Header/index.js'
+import Footer from './Footer/index.js'
+import LandingPage from './LandingPage/index.js'
 
 
 
