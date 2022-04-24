@@ -1,0 +1,34 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+
+
+.bg-green{
+    background-color:#41ad2b ;
+    color:#fff;
+}
+
+
+.header-bg{
+   background-color:lightslategrey ;
+    color:#fff;  
+    padding-top: 1.5rem; 
+}
+
+.bg-green:hover{
+    background-color: #fff ;
+    color:#41ad2b;
+}
+
+
+
+  .float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:2.5rem;
+	right:2.5rem;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}

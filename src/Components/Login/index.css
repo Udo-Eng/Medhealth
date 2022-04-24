@@ -1,0 +1,84 @@
+.formwidth{
+align-self: center;
+width: 40rem;
+}
+
+.header{
+    width: 40rem;
+    height: 20vh;
+    align-self: center;
+    background-color: #41ad2b;
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 1.2rem  0;
+}
+form{
+    border: 1px solid #fff;
+    padding: 3rem;
+    border-radius: 1.2rem;
+}
+
+form button {
+  margin : 0.8rem auto;
+}
+
+
+.container p  {
+    text-align: center;
+}
+
+.container{
+    width: 100vw;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+#logIn-form label{
+font-size: 1.2rem;
+}
+
+
+.bg-green{
+    background-color: #41ad2b;
+    color:#fff;
+}
+
+.pointer{
+    cursor: pointer;
+    color: lightskyblue;
+}
+
+#btn-log:hover{
+color: #fff;
+}
+
+@media only screen and (max-width : 480px ){
+    .formwidth{
+        align-self: center;
+        width: 28rem;
+        }
+        .header{
+            width: 28rem;
+            height: 20vh;
+            align-self: center;
+        }
+}
+
+@media only screen and (max-width : 420px ){
+    .formwidth{
+        align-self: center;
+        width: 20rem;
+        }
+        .header{
+            width: 20rem;
+            height: 10vh;
+            align-self: center;
+            text-align: center;
+            padding: 0.6rem 0rem;
+            
+        }
+}
