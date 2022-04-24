@@ -4,17 +4,6 @@ import './index.css'
 
 
 
-const createPatient = async (credentials) => {
-
-    return fetch('http://localhost:3030/patient/add', {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    }).then(response => response.json()).then(result => result)
-        .catch(err => console.log(err));
-}
 
 // Declaring global variables 
 let  closeFormFunction = null;
@@ -60,6 +49,8 @@ class  PatientForm  extends React.Component{
 // Function to handle form submission 
     onSubmitHandler = async (e) => {
 
+        let  { PatientHandler} = this.props;
+
                  e.preventDefault();
 
                 if(!this.form.checkValidity()) {
@@ -78,7 +69,7 @@ class  PatientForm  extends React.Component{
                     
                         let patientInfo = Object.assign({},this.state);
 
-                        const response = await createPatient(patientInfo);
+                    const response = await PatientHandler(patientInfo);
 
                     if (response.sucess) {
                         this.setState({ errorMessage: null });
@@ -106,7 +97,7 @@ class  PatientForm  extends React.Component{
     }
 
     render(){
-                const { closeForm,btnDisplay,Data,headerDisplay} = this.props;
+      const { closeForm,btnDisplay,Data,headerDisplay} = this.props;
 
         // Setting Global Variables to update state
         updatePatientData = Data
@@ -628,3 +619,15 @@ export default PatientForm;
 
 
 
+
+// const createPatient = async (credentials) => {
+
+//     return fetch('http://localhost:3030/patient/add', {
+//         method: 'post',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(credentials)
+//     }).then(response => response.json()).then(result => result)
+//         .catch(err => console.log(err));
+// }

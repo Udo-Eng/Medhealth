@@ -7,32 +7,32 @@ import PatientsList from './Components/PatientsList/index.js';
 
 
 
-let dumData = [
-  {
-    firstName: 'Udochukwu',
-    lastName: 'Abazie',
-    phoneNumber: 8045692920,
-    email: 'udo@gmail.com',
-  },
-  {
-    firstName: 'lily',
-    lastName: 'Abazie',
-    phoneNumber: 8045692450,
-    email: 'lily@gmail.com',
-  },
-  {
-    firstName: 'otito',
-    lastName: 'Abazie',
-    phoneNumber: 804569460,
-    email: 'otito@gmail.com',
-  },
-  {
-    firstName: 'anurichi',
-    lastName: 'Abazie',
-    phoneNumber: 8037868236,
-    email: 'anuri@gmail.com',
-  }
-]
+// let dumData = [
+//   {
+//     firstName: 'Udochukwu',
+//     lastName: 'Abazie',
+//     phoneNumber: 8045692920,
+//     email: 'udo@gmail.com',
+//   },
+//   {
+//     firstName: 'lily',
+//     lastName: 'Abazie',
+//     phoneNumber: 8045692450,
+//     email: 'lily@gmail.com',
+//   },
+//   {
+//     firstName: 'otito',
+//     lastName: 'Abazie',
+//     phoneNumber: 804569460,
+//     email: 'otito@gmail.com',
+//   },
+//   {
+//     firstName: 'anurichi',
+//     lastName: 'Abazie',
+//     phoneNumber: 8037868236,
+//     email: 'anuri@gmail.com',
+//   }
+// ]
 
 class App extends Component {
 
@@ -44,7 +44,7 @@ class App extends Component {
         lastName: '',
         email: '',
       },
-      data: dumData,
+      data:[],
       logIn: false,
       register: false,
     }
@@ -55,23 +55,19 @@ class App extends Component {
   }
 
 
-//   componentDidMount() {
-
-//     this.setState({ data: dumData });
-
-//   }
 
 
-//   componentDidUpdate(prevState){
+// Lifecycle method to update the Data state
+  componentDidUpdate(prevState){ 
+    if(prevState.register){
 
-// // Perform the application Logic 
-//     if(prevState.register){
-//      let  ServerData =  getPatients();
+      getPatients().
+      then( ServerData =>
+         this.setState({ data: ServerData })
+          );
 
-//       this.setState({ data: ServerData });
-//     }
-    
-//   }
+    }
+}
 
   setAdmin(admin) {
     this.setState({
@@ -90,6 +86,31 @@ class App extends Component {
     })
   }
 
+  createPatientHandler = (patientData) => {
+
+     let newData =  await createPatient(patientData);
+
+     this.setState({data: newData});
+
+  }
+
+
+  updatePatientHandler = (patientData) => {
+
+    let newData = await updatePatient(patientData);
+
+    this.setState({ data: newData });
+
+  }
+
+deletePatientHandler = (patientData) => {
+
+    let newData = await deletePatient(patientData);
+
+    this.setState({ data: newData });
+
+  }
+
   render() {
 
     const { logIn, register, data, admin } = this.state;
@@ -103,13 +124,13 @@ class App extends Component {
         setAdmin={this.setAdmin}
         setRegister={this.setRegister}
       />
-    } else if (true) {
+    } else if (register) {
       return <PatientsList
        data={data} 
        admin={admin}
-      //  createPatient={createPatient}
-      //  deletePatient={deletePatient}
-      //  updatePatient={updatePatient}
+        createPatientHandler={this.createPatientHandler}
+        deletePatientHandler={this.deletePatientHandler}
+        updatePatientHandler={this.updatePatientHandler}
        />
     } else {
       return (

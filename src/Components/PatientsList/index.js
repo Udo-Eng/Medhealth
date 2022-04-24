@@ -5,14 +5,16 @@ import DeletePatient from '../DeletePatient/index.js'
 
 
 
-const PatientsList = ({data}) => {
+const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePatientHandler}) => {
+
+   
 
     const [createPatient,setCreatePatient] = useState(false);
     const [updatePatient,setUpdatePatient] = useState(null);
     const [deletePatient,setDeletePatient] = useState('');
     const [isUpdateOpen,setIsUpdateOpen] = useState(false);
     const [isOpen,setOpen] = useState(false);
-    const [filtereddata,setData] = useState(data)
+   
 
 // function to display the create patient form 
     const createPatientHandler  = (event) => {
@@ -20,26 +22,14 @@ const PatientsList = ({data}) => {
     }
      
 
-    // function to filter the View data 
-    const filterPatient = (email) => {
-         
-      setOpen(false);
-
-    let NewData = data.filter((patient) => email !== patient.email ).map(patient => patient);
-   
-    setData(NewData);
-
-    }
-
-    const deletePatientHandler = (email) => () => {
-        filterPatient(email);
-    }
-
-
-
 
     return (
-        createPatient ? <PatientForm  closeForm={()=> setCreatePatient(false)} btnDisplay="Create Patient" headerDisplay="Patient Registration"/> :
+        createPatient ? <PatientForm  
+        closeForm={()=> setCreatePatient(false)}
+         btnDisplay="Create Patient"
+          headerDisplay="Patient Registration"
+         PatientHandler={createPatientHandler}
+          /> :
         <>
                 { 
                 isUpdateOpen ? 
@@ -48,6 +38,7 @@ const PatientsList = ({data}) => {
                 btnDisplay="Update Patient" 
                 Data={updatePatient} 
                 headerDisplay="Update Patient"
+                PatientHandler={updatePatientHandler}
                 /> : 
              <>
                     <DeletePatient
@@ -71,7 +62,7 @@ const PatientsList = ({data}) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filtereddata.map((Patient, index) => {
+                            {data.map((Patient, index) => {
                                 let SN = ++index;
 
                                 return (
@@ -128,3 +119,25 @@ const PatientsList = ({data}) => {
 
 
 export default PatientsList;
+
+
+
+
+
+ // // function to filter the View data 
+    // const filterPatient = (email) => {
+         
+    //   setOpen(false);
+
+    // let NewData = data.filter((patient) => email !== patient.email ).map(patient => patient);
+   
+    // setData(NewData);
+
+    // }
+
+    // const deletePatientHandler = (email) => () => {
+    //     filterPatient(email);
+    // }
+
+
+// const [filtereddata, setData] = useState(data)
