@@ -4,14 +4,10 @@ import './index.css'
 
 const rootPortal = document.getElementById('rootPortal');
 
-const DeletePatient  = (props) =>{
+const DeletePatient  = (props) => {
 
-    const { isOpen, Close, deletePatientHandler, deletePatient } = props;
+    const { isOpen, Close, deletePatientHandlerFunction, patientId } = props;
 
-
-    // const  onDeleteHandler = (event) => {
-    //     // Call the main App function to perform the request and delete the resource 
-    // }
 
     if (!isOpen) return null;
     return (
@@ -41,7 +37,7 @@ const DeletePatient  = (props) =>{
                             </button>
                             <button
                              type="button"
-                             onClick={deletePatientHandler(deletePatient)}
+                            onClick={deletePatientHandlerFunction(patientId)}
                             className="btn btn-danger"
                               >
                                 Yes

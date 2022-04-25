@@ -57,46 +57,51 @@ class App extends Component {
 
 
 
-// Lifecycle method to update the Data state
-  componentDidUpdate(){ 
+// method to update the Data state to an array of patients 
+  requestPatientsData = async () => { 
+    const {register} = this.state;
     
-    const {register,data} = this.state;
-    console.log(data);
     if(register){
       getPatients().then(ServerData =>
         this.setState({ data: ServerData.patients })
       );
     } 
 
-    console.log(data);
 }
 
+// Function to set the Admin state 
   setAdmin(admin) {
     this.setState({
       admin
     })
   }
 
+  // Function to set the logIn state for routing 
   setLogIn(logIn) {
     this.setState({
       logIn
     })
   }
+
+
+ // Function to set the Register state for routing 
   setRegister(register) {
     this.setState({
       register
     })
   }
 
+  // Function to create Patient
   createPatientHandler = async (patientData) => {
 
      let newData =  await createPatient(patientData);
 
      this.setState({data: newData});
 
+      return newData;
   }
 
-
+// function to update patient
   updatePatientHandler = async (patientId,patientData) => {
 
     let newData = await updatePatient(patientId , patientData);
@@ -105,9 +110,11 @@ class App extends Component {
 
   }
 
-deletePatientHandler = async (patientData) => {
 
-    let newData = await deletePatient(patientData);
+  // function to delete Patient
+deletePatientHandler = async (patientId) => {
+
+    let newData = await deletePatient(patientId);
 
     this.setState({ data: newData });
 
@@ -117,8 +124,6 @@ deletePatientHandler = async (patientData) => {
 
     const { logIn, register, data, admin } = this.state;
 
-
-
     if (logIn) {
       return <Login
         createAdmin={createAdmin}
@@ -126,6 +131,7 @@ deletePatientHandler = async (patientData) => {
         setAdmin={this.setAdmin}
         setRegister={this.setRegister}
         setLogIn={this.setLogIn}
+        requestPatientsData={this.requestPatientsData}
       />
     } else if (register) {
       return <PatientsList

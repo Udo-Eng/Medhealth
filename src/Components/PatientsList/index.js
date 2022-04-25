@@ -8,11 +8,10 @@ import DeletePatient from '../DeletePatient/index.js'
 const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePatientHandler}) => {
 
    
-    
 
     const [createPatient,setCreatePatient] = useState(false);
     const [updatePatient,setUpdatePatient] = useState(null);
-    const [deletePatient,setDeletePatient] = useState('');
+    const [patientId,setPatientId] = useState('');
     const [isUpdateOpen,setIsUpdateOpen] = useState(false);
     const [isOpen,setOpen] = useState(false);
    
@@ -21,14 +20,19 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
     const OnClickHandler  = (event) => {
       setCreatePatient(true);
     }
+
+
+     const deletePatientHandlerFunction = (email) => () => {
+        deletePatientHandler(email);
+    }
      
 
     return (
-        createPatient ? <PatientForm  
-        closeForm={()=> setCreatePatient(false)}
+         createPatient ? <PatientForm  
+         closeForm={()=> setCreatePatient(false)}
          btnDisplay="Create Patient"
          headerDisplay="Patient Registration"
-        createPatient={createPatient}
+         createPatient={createPatient}
          PatientHandler={createPatientHandler}
           /> :
         <>
@@ -43,10 +47,10 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                 /> : 
              <>
                     <DeletePatient
-                        deletePatient={deletePatient}
+                        patientId={patientId}
                         isOpen={isOpen}
                         Close={() => setOpen(false)}
-                        deletePatientHandler={deletePatientHandler}
+                        deletePatientHandlerFunction={deletePatientHandlerFunction}
                     />
                     <h1 className='header-bg' style={{ textAlign: 'center' }}> Patients Records</h1>
                     <table className='table table-hover' >
@@ -92,7 +96,7 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                                         </td>
                                         <td>
                                             <button className='btn bg-green btn-sm '
-                                                onClick={() => { setOpen(true); setDeletePatient(Patient.email) }}
+                                                onClick={() => { setOpen(true); setPatientId(Patient._id) }}
                                             >
                                                 <i
                                                     className="fa fa-trash" >
@@ -136,9 +140,7 @@ export default PatientsList;
 
     // }
 
-    // const deletePatientHandler = (email) => () => {
-    //     filterPatient(email);
-    // }
+   
 
 
 // const [filtereddata, setData] = useState(data)

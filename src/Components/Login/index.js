@@ -6,7 +6,7 @@ import './index.css';
 
 
 // Begining of Login component
-const Login = ({ LogInAdmin, setAdmin, createAdmin,setRegister,setLogIn}) => {
+const Login = ({ LogInAdmin, setAdmin, createAdmin, setRegister, setLogIn,requestPatientsData}) => {
 
 const logForm = useRef(null)
 
@@ -42,8 +42,8 @@ const logForm = useRef(null)
         setAdmin(result.Admin);
         setLogIn(false);
         setRegister(true);
+        requestPatientsData();
       } else {
-        console.log("your email and password did not match ");
         setErrorMessage(result.message);
         setRegister(false);
         setLogIn(true);
@@ -61,8 +61,8 @@ const logForm = useRef(null)
   return (
     isRegistered ? <Register setIsRegistered={setIsRegistered}  createAdmin={createAdmin}/> :
       <div className='container '>
-        {errorMessage ? <div>{errorMessage}</div> : <></>}
       <h1 className=' header ' >Login</h1>
+        {errorMessage ? <div className='message-error' >{errorMessage}</div> : <></>}
         <form 
         className={formClass} 
         onSubmit={onSubmitHandler} 
