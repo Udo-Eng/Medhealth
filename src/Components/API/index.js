@@ -1,9 +1,12 @@
 //All my API requests 
 
-const getPatients = () => {
+const getPatients = async () => {
     return fetch('http://localhost:3030/patients')
     .then(response => response.json())
-    .then(result => result)
+    .then(result => {
+     console.log(result);
+     return  result
+    })
     .catch(err => console.log(err));
 }
 

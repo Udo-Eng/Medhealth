@@ -39,7 +39,11 @@ const Register = ({ createAdmin , setIsRegistered }) => {
 
             setformClass("formwidth mb-3");
 
-            const result = await createAdmin(Admin);
+            console.log(Admin);
+
+            let result = await createAdmin(Admin);
+
+            console.log(result);
 
             if (result.sucess) {
                 // Set the Login state is Registered to true and route to Login Form
@@ -61,8 +65,9 @@ const Register = ({ createAdmin , setIsRegistered }) => {
 
     return (
         <div className='container '>
-            {errorMessage? <div>{errorMessage}</div> : <div></div>}
+            
             <h1 className='header'>Register</h1>
+            {errorMessage? <div className = 'message-error' >{errorMessage}</div> : <div></div>}
             <form
                 className={formClass}
                 onSubmit={onSubmitHandler}

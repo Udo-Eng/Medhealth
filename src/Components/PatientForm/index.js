@@ -15,6 +15,7 @@ class  PatientForm  extends React.Component{
     constructor(props){
         super(props);
         this.state ={
+           id:"",
            hospital: "",
            firstName: "",
            lastName: "",
@@ -27,12 +28,12 @@ class  PatientForm  extends React.Component{
            dob: "",
            phoneNumber: "",
            state: "",
-           address: "",
+           resdentialAddress: "",
            kinFirstName: "",
            kinLastName: "",
            kinPhonenumber: "",
            kinRelationship: "",
-           kinAddress: "",
+           kinResidentialAddress: "",
            errorMessage: "",
            formClass : 'formwidth',
            UpdatePatient:false
@@ -46,10 +47,17 @@ class  PatientForm  extends React.Component{
         this.setState({ [name] : value});
     }
 
+
+    // Set Patient id when patient is created 
+    setPatientId = (id) => {
+        this.setState({id});
+    }
+
 // Function to handle form submission 
     onSubmitHandler = async (e) => {
 
-        let  { PatientHandler} = this.props;
+        let { PatientHandler,createPatient,updatePatientHandler} = this.props;
+        let id = this.state.id;
 
                  e.preventDefault();
 
@@ -65,11 +73,24 @@ class  PatientForm  extends React.Component{
 
                     console.info('Valid Form');
 
-                    closeFormFunction();
                     
-                        let patientInfo = Object.assign({},this.state);
+                    let patientInfo = Object.assign({},this.state);
 
-                    const response = await PatientHandler(patientInfo);
+                    // Declare the response variable 
+                    let response;
+                    if (createPatient){
+                       response = await PatientHandler(patientInfo);
+                       
+                        let patientId =  response.patients[0]._id 
+                       
+                        this.setPatientId(patientId);
+
+                    }else{
+                       response = await updatePatientHandler(id,patientInfo); 
+                    } 
+
+                    // function to close form;
+                    closeFormFunction();
 
                     if (response.sucess) {
                         this.setState({ errorMessage: null });
@@ -116,12 +137,12 @@ class  PatientForm  extends React.Component{
             dob,
             phoneNumber,
             state,
-            address,
+            resdentialAddress,
             kinFirstName,
             kinLastName,
             kinPhoneNumber,
             kinRelationship,
-            kinAddress,
+            kinResidentialAddress,
             formClass,
             errorMessage
         }  = this.state;
@@ -464,16 +485,16 @@ class  PatientForm  extends React.Component{
                         </div>
                         <div className='mb-3'>
                             <label
-                                htmlFor='address'
+                                htmlFor='resdentialAddress'
                                 className='form-label'>
                                 Residental Address
                             </label>
                             <textarea
-                                name='address'
+                                name='resdentialAddress'
                                 id='address'
                                 placeholder='Enter your address'
                                 className='form-control'
-                                value={address}
+                                value={resdentialAddress}
                                 onChange={this.handleChange}
                                 required
                             >
@@ -483,6 +504,7 @@ class  PatientForm  extends React.Component{
                             </div>
                         </div>
                     </fieldset>
+
                     {/* NEXT OF KIN INFO  BEGINS  */}
                     <fieldset className="border rounded-3 p-3">
                         <legend className="float-none  w-auto  px-3">Next of Kin Info</legend>
@@ -571,23 +593,23 @@ class  PatientForm  extends React.Component{
                                         required
                                     />
                                     <div className="invalid-feedback">
-                                        Please enter next of kin phone number
+                                        please enter next of kin phone number
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className='mb-3'>
                             <label
-                                htmlFor='kinAddress'
+                                htmlFor='kinResidentialAddress'
                                 className='form-label'>
-                                Next of Kin Address
+                                  Next of Kin Address
                             </label>
                             <textarea
-                                name='kinAddress'
+                                name='kinResidentialAddress'
                                 id='kinaddress'
                                 placeholder='Enter your Next of Kin Address'
                                 className='form-control'
-                                value={kinAddress}
+                                value={kinResidentialAddress}
                                 onChange={this.handleChange}
                                 required
                             >
@@ -614,9 +636,6 @@ class  PatientForm  extends React.Component{
 
 
 export default PatientForm;
-
-
-
 
 
 

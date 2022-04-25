@@ -13,9 +13,9 @@ const Header = (props) => {
         <header>        
             <p className="logo">Med-Health</p>
                 <ul className="navbar-list">
-                <li className="navbar-item"><a  href='#'>Home</a></li>
-                <li className="navbar-item"><a  href='#'>About</a></li>
-                <li className="navbar-item" ><a href='#'>Services</a></li>
+                <li className="navbar-item"><p>Home</p></li>
+                <li className="navbar-item"><p >About</p></li>
+                <li className="navbar-item" ><p>Services</p></li>
                 </ul> 
             <button className="cta" onClick={onClickHandler}>Login</button>
         </header>

@@ -58,15 +58,17 @@ class App extends Component {
 
 
 // Lifecycle method to update the Data state
-  componentDidUpdate(prevState){ 
-    if(prevState.register){
+  componentDidUpdate(){ 
+    
+    const {register,data} = this.state;
+    console.log(data);
+    if(register){
+      getPatients().then(ServerData =>
+        this.setState({ data: ServerData.patients })
+      );
+    } 
 
-      getPatients().
-      then( ServerData =>
-         this.setState({ data: ServerData })
-          );
-
-    }
+    console.log(data);
 }
 
   setAdmin(admin) {
@@ -86,7 +88,7 @@ class App extends Component {
     })
   }
 
-  createPatientHandler = (patientData) => {
+  createPatientHandler = async (patientData) => {
 
      let newData =  await createPatient(patientData);
 
@@ -95,15 +97,15 @@ class App extends Component {
   }
 
 
-  updatePatientHandler = (patientData) => {
+  updatePatientHandler = async (patientId,patientData) => {
 
-    let newData = await updatePatient(patientData);
+    let newData = await updatePatient(patientId , patientData);
 
     this.setState({ data: newData });
 
   }
 
-deletePatientHandler = (patientData) => {
+deletePatientHandler = async (patientData) => {
 
     let newData = await deletePatient(patientData);
 
@@ -123,6 +125,7 @@ deletePatientHandler = (patientData) => {
         LogInAdmin={LogInAdmin}
         setAdmin={this.setAdmin}
         setRegister={this.setRegister}
+        setLogIn={this.setLogIn}
       />
     } else if (register) {
       return <PatientsList

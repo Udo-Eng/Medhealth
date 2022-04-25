@@ -6,7 +6,7 @@ import './index.css';
 
 
 // Begining of Login component
-const Login = ({ LogInAdmin, setAdmin, createAdmin,setRegister}) => {
+const Login = ({ LogInAdmin, setAdmin, createAdmin,setRegister,setLogIn}) => {
 
 const logForm = useRef(null)
 
@@ -40,12 +40,13 @@ const logForm = useRef(null)
       if (result.sucess) {
         // Set the register state  to route to Patients List 
         setAdmin(result.Admin);
+        setLogIn(false);
         setRegister(true);
       } else {
         console.log("your email and password did not match ");
         setErrorMessage(result.message);
         setRegister(false);
-
+        setLogIn(true);
       }
 
     }
@@ -113,7 +114,7 @@ const logForm = useRef(null)
             </button>
           </div>
         </form>
-        <p >Have not Registered? <span  onClick={onClickHandler}className='pointer'>Register</span></p>
+        <p >Have not Registered? <span  onClick={onClickHandler} className='pointer'>Register</span></p>
       </div>
   )
 }

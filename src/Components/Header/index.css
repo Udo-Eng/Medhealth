@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 
- header li , header a, header button{
+ header li , header p, header button{
     font-weight: 500;
     font-size: 1rem;
     text-decoration: none;
@@ -8,7 +8,8 @@
     font-family: 'Roboto', sans-serif;
 }
 
-header p{
+.logo{
+    margin-top: 1rem;
     color: #fff;
     font-family: 'Roboto', sans-serif;
     cursor:pointer;
@@ -30,20 +31,22 @@ header{
 
 
 .navbar-list{
+    margin-top: 2rem;
     list-style: none;
 }
 
 .navbar-list li{
     display: inline-block;
-    padding: 0rem 1.5rem;
+    padding: 1.5rem 1.5rem;
 }
 
-.navbar-list li a{
+.navbar-list li p{
+  cursor:pointer;
   transition : all 0.3s ease 0s;
 }
 
 
-.navbar-list li a:hover{
+.navbar-list li p:hover{
   color: #2349a8;
   font-size: 1.2rem;
 }
@@ -67,7 +70,7 @@ header button:hover{
 }
 
 
-@media only screen and (max-width : 480px ){
+@media only screen and (max-width: 480px ){
     .navbar-list{
         display: none;
     }
@@ -76,10 +79,10 @@ header button:hover{
         position:fixed;
         top:0;
         left:0;
-        width: 25rem;
+        width:100vw;
     }
 
-    header p{
+   .logo{
         color: #fff;
         font-family: 'Roboto', sans-serif;
         cursor:pointer;
@@ -88,6 +91,7 @@ header button:hover{
         margin-top:0.6rem;
         text-align :center;
     }
+ 
 }
 
 

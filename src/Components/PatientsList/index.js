@@ -8,6 +8,7 @@ import DeletePatient from '../DeletePatient/index.js'
 const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePatientHandler}) => {
 
    
+    
 
     const [createPatient,setCreatePatient] = useState(false);
     const [updatePatient,setUpdatePatient] = useState(null);
@@ -17,17 +18,17 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
    
 
 // function to display the create patient form 
-    const createPatientHandler  = (event) => {
+    const OnClickHandler  = (event) => {
       setCreatePatient(true);
     }
      
-
 
     return (
         createPatient ? <PatientForm  
         closeForm={()=> setCreatePatient(false)}
          btnDisplay="Create Patient"
-          headerDisplay="Patient Registration"
+         headerDisplay="Patient Registration"
+        createPatient={createPatient}
          PatientHandler={createPatientHandler}
           /> :
         <>
@@ -38,7 +39,7 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                 btnDisplay="Update Patient" 
                 Data={updatePatient} 
                 headerDisplay="Update Patient"
-                PatientHandler={updatePatientHandler}
+                updatePatientHandler={updatePatientHandler}
                 /> : 
              <>
                     <DeletePatient
@@ -105,7 +106,7 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                     </table>
                     <button
                         className='btn btn-danger btn-lg float'
-                        onClick={createPatientHandler}
+                                onClick={OnClickHandler}
                     >
                         <i className="fa fa-plus"></i>
                     </button>
