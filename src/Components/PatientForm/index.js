@@ -150,7 +150,7 @@ class  PatientForm  extends React.Component{
         return (
             <div className='reg-container '>
                 {
-                errorMessage ? <div className='error'>{errorMessage}</div> : <div></div>
+                errorMessage ? <div className='message-error'>{errorMessage}</div> : <div></div>
             }
                 <h1 className='mb-3 header' >{headerDisplay}</h1>
                 <form onSubmit={ this.onSubmitHandler} className={formClass} id="reg-form" ref={el => this.form = el} noValidate>
