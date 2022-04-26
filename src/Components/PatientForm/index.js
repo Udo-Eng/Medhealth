@@ -19,12 +19,12 @@ class  PatientForm  extends React.Component{
            middleName: "",
            email: "",
            gender: "",
-           status: "",
+           maritalStatus: "",
            nationality: "",
            age: "",
            dob: "",
            phoneNumber: "",
-           state: "",
+           stateOfOrigin: "",
            resdentialAddress: "",
            kinFirstName: "",
            kinLastName: "",
@@ -65,22 +65,28 @@ class  PatientForm  extends React.Component{
                     let patientInfo = Object.assign({},this.state);
 
                     // Declare the response variable 
-                    let response;
+                    
+
                     if (createPatient){
-                       response = await PatientHandler(patientInfo);
+                      let  response = await PatientHandler(patientInfo);
+
+                        if (response.sucess) {
+                            this.setState({ errorMessage: null });
+                        } else {
+                            this.setState({ errorMessage: response.message });
+                        }
                     }else{
-                        let id = Data.id;
-                       response = await updatePatientHandler(id,patientInfo); 
+                        let id = Data._id;
+                        let  response = await updatePatientHandler(id,patientInfo);
+                        if (response.sucess) {
+                            this.setState({ errorMessage: null });
+                        } else {
+                            this.setState({ errorMessage: response.message });
+                        }
                     } 
 
-                    // function to close form;
-                    closeFormFunction();
-
-                    if (response.sucess) {
-                        this.setState({ errorMessage: null });
-                    } else {
-                        this.setState({errorMessage:response.message});
-                    }
+                     // function to close form;
+                        closeFormFunction();
 
                 }
      
@@ -99,6 +105,7 @@ class  PatientForm  extends React.Component{
         }   
     }
 
+
     render(){
         const { closeForm,btnDisplay,Data,headerDisplay} = this.props;
 
@@ -113,12 +120,12 @@ class  PatientForm  extends React.Component{
             middleName,
             email,
             gender,
-            status,
+            maritalStatus,
             nationality,
             age,
             dob,
             phoneNumber,
-            state,
+            stateOfOrigin,
             resdentialAddress,
             kinFirstName,
             kinLastName,
@@ -273,16 +280,16 @@ class  PatientForm  extends React.Component{
                                 </div>
                                 <div className='col-md-6'>
                                     <label
-                                        htmlFor='status'
+                                        htmlFor='maritalStatus'
                                         className='form-label'>
                                         Maritial Status
                                     </label>
                                     <select
-                                        name='status'
-                                        id='status'
+                                        name='maritalStatus'
+                                        id='maritalStatus'
                                         className='form-select'
                                         onChange={this.handleChange}
-                                        value={status}
+                                        value={maritalStatus}
                                         required
                                     >
                                         <option >
@@ -376,13 +383,13 @@ class  PatientForm  extends React.Component{
                                 </div>
                                 <div className='col-md-6'>
                                     <label
-                                        htmlFor='phone number'
+                                        htmlFor= 'phoneNumber'
                                         className='form-label'>
                                         Phone Number
                                     </label>
                                     <input
                                         name = 'phoneNumber'
-                                        id='phone number'
+                                        id='phoneNumber'
                                         type='text'
                                         placeholder='Enter phone number'
                                         className='form-control'
@@ -431,16 +438,16 @@ class  PatientForm  extends React.Component{
                                 </div>
                                 <div className='col-md-6'>
                                     <label
-                                        htmlFor='state'
+                                        htmlFor='stateOfOrigin'
                                         className='form-label'>
                                         State of Origin
                                     </label>
                                     <select
-                                        name='state'
-                                        id='state'
+                                        name='stateOfOrigin'
+                                        id='stateOfOrigin'
                                         className='form-select'
                                         onChange={this.handleChange}    
-                                        value={state}
+                                        value={stateOfOrigin}
                                         required
                                     >
                                         <option>
@@ -607,6 +614,13 @@ class  PatientForm  extends React.Component{
                             className='btn btn-lg bg-green mb-3'  
                         >
                             {btnDisplay}
+                        </button>
+                        <button
+                            type='button'
+                            className='btn btn-lg btn-danger mb-3 mx-4'
+                            onClick={closeForm}
+                        >
+                            cancel
                         </button>
                     </div>
                 </form>

@@ -82,6 +82,8 @@ class App extends Component {
        this.requestPatientsData();
      }
 
+     return response;
+
   }
 
 
@@ -92,17 +94,14 @@ deletePatientHandler = async (patientId) => {
 
     if(response.sucess){
       this.setState({data : response.patients});
-    }else{
-      // handle error message here 
     }
-
   }
 
   render() {
 
     const { logIn, register, data, admin } = this.state;
 
-    
+
     if (logIn) {
       return <Login
         createAdmin={createAdmin}
@@ -119,6 +118,7 @@ deletePatientHandler = async (patientId) => {
         createPatientHandler={this.createPatientHandler}
         deletePatientHandler={this.deletePatientHandler}
         updatePatientHandler={this.updatePatientHandler}
+        setRegister={this.setRegister}
        />
     } else {
       return (

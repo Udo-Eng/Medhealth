@@ -5,7 +5,7 @@ import DeletePatient from '../DeletePatient/index.js'
 
 
 // BEGINING OF PATIENT LIST COMPONENT 
-const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePatientHandler}) => {
+const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePatientHandler,setRegister}) => {
 
 
     const [createPatient,setCreatePatient] = useState(false);
@@ -66,8 +66,14 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                         Close={() => setOpen(false)}
                         deletePatientHandlerFunction={deletePatientHandlerFunction}
                     />
-                    <h1 className='header-bg' style={{ textAlign: 'center' }}> Patients Records</h1>
-                    <table className='table table-hover' >
+                            <header className="d-flex header-bg">
+                                <h1 style={{ textAlign: 'center' }}>
+                                    Patients Records
+                                </h1>
+                                <button className="cta " onClick={() => { setRegister(false) }}>Logout</button>
+                    </header>
+                   
+                    <table className='table table-hover ' >
 
                         <thead className='header-bg'>
                             <tr className='text-center'>

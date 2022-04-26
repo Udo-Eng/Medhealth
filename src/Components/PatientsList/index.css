@@ -31,7 +31,19 @@
 	box-shadow: 2px 2px 3px #999;
 }
 
+.cta{
+    padding: 0.5rem 1.5rem;
+	margin-left:3rem;
+    cursor:pointer;
+    border:none;
+    border-radius: 2rem;
+    color: #41ad2b;
+    transition : all 0.3s ease 0s;	
+}
 
+.table{
+	margin-top: 4rem;
+}
 
 
 @media(max-width:480px){

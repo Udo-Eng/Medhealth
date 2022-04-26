@@ -1,10 +1,9 @@
 //All my API requests 
 
 const getPatients = async () => {
-    return fetch('http://localhost:3030/patients')
+    return fetch('https://medhealth-api-1.herokuapp.com/patients')
     .then(response => response.json())
     .then(result => {
-     console.log(result);
      return  result
     })
     .catch(err => console.log(err));
@@ -13,7 +12,7 @@ const getPatients = async () => {
 
 const createPatient =  (credentials) => {
 
-    return fetch('http://localhost:3030/patient/add', {
+    return fetch('https://medhealth-api-1.herokuapp.com/patient/add', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -27,7 +26,7 @@ const createPatient =  (credentials) => {
 
 const deletePatient =  (patientId) => {
 
-    return fetch(`http://localhost:3030/patient/delete/${patientId}`, {
+    return fetch(`https://medhealth-api-1.herokuapp.com/patient/delete/${patientId}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -40,7 +39,7 @@ const deletePatient =  (patientId) => {
 
 const updatePatient =  (patientId,credentials) => {
 
-    return fetch(`http://localhost:3030/patient/update/${patientId}`, {
+    return fetch(`https://medhealth-api-1.herokuapp.com/update/${patientId}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -53,7 +52,7 @@ const updatePatient =  (patientId,credentials) => {
 
 const createAdmin =  (credentials) => {
 
-    return fetch('http://localhost:3030/admin/register', {
+    return fetch('https://medhealth-api-1.herokuapp.com/admin/register', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -67,7 +66,7 @@ const createAdmin =  (credentials) => {
 
 const LogInAdmin =  (credentials) => {
 
-    return fetch('http://localhost:3030/admin/login', {
+    return fetch('https://medhealth-api-1.herokuapp.com/admin/login', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
