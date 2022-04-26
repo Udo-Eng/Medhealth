@@ -3,8 +3,6 @@ import './index.css'
 
 
 
-
-
 // Declaring global variables 
 let  closeFormFunction = null;
 let  updatePatientData = null;
@@ -15,8 +13,7 @@ class  PatientForm  extends React.Component{
     constructor(props){
         super(props);
         this.state ={
-           id:"",
-           hospital: "",
+           hospital: "Med Plus  Hospital",
            firstName: "",
            lastName: "",
            middleName: "",
@@ -31,7 +28,7 @@ class  PatientForm  extends React.Component{
            resdentialAddress: "",
            kinFirstName: "",
            kinLastName: "",
-           kinPhonenumber: "",
+           kinPhoneNumber: "",
            kinRelationship: "",
            kinResidentialAddress: "",
            errorMessage: "",
@@ -47,32 +44,23 @@ class  PatientForm  extends React.Component{
         this.setState({ [name] : value});
     }
 
-
-    // Set Patient id when patient is created 
-    setPatientId = (id) => {
-        this.setState({id});
-    }
-
 // Function to handle form submission 
     onSubmitHandler = async (e) => {
 
-        let { PatientHandler,createPatient,updatePatientHandler} = this.props;
-        let id = this.state.id;
-
+        let { PatientHandler,createPatient,updatePatientHandler,Data} = this.props;
+        
                  e.preventDefault();
 
-                if(!this.form.checkValidity()) {
-                 
-
-                    console.error('Invalid Form');
-                    this.setState({ formClass : 'formwidth was-validated'});
+                    if(!this.form.checkValidity()) {
                     
-                }else{
-                    
+                        console.error('Invalid Form');
+                        this.setState({ formClass : 'formwidth was-validated'});
+                        
+                    }else{
+                        
                     this.setState({ formClass : 'formwidth'});
 
                     console.info('Valid Form');
-
                     
                     let patientInfo = Object.assign({},this.state);
 
@@ -80,12 +68,8 @@ class  PatientForm  extends React.Component{
                     let response;
                     if (createPatient){
                        response = await PatientHandler(patientInfo);
-                       
-                        let patientId =  response.patients[0]._id 
-                       
-                        this.setPatientId(patientId);
-
                     }else{
+                        let id = Data.id;
                        response = await updatePatientHandler(id,patientInfo); 
                     } 
 
@@ -94,7 +78,6 @@ class  PatientForm  extends React.Component{
 
                     if (response.sucess) {
                         this.setState({ errorMessage: null });
-                        console.log('User registered sucessfully ');
                     } else {
                         this.setState({errorMessage:response.message});
                     }
@@ -105,7 +88,6 @@ class  PatientForm  extends React.Component{
 
     // Function to handle update functionality 
     UpdateFormHandler = (updatePatientData) => {
-        console.log(updatePatientData);
         if(updatePatientData !== null){
             this.setState(updatePatientData);
         }
@@ -118,7 +100,7 @@ class  PatientForm  extends React.Component{
     }
 
     render(){
-      const { closeForm,btnDisplay,Data,headerDisplay} = this.props;
+        const { closeForm,btnDisplay,Data,headerDisplay} = this.props;
 
         // Setting Global Variables to update state
         updatePatientData = Data
@@ -170,13 +152,13 @@ class  PatientForm  extends React.Component{
                                 <option>
                                     Select a hospital
                                 </option>
-                                <option value="health Care">
+                                <option value="Health care Hospital">
                                     Health care Hospital
                                 </option>
-                                <option value="Med Plus">
+                                <option value="Med Plus Hospital">
                                     Med Plus  Hospital
                                 </option>
-                                <option value="Forever">
+                                <option value="Forever Hospital">
                                     Forever Hospital
                                 </option>
                             </select>
@@ -430,7 +412,7 @@ class  PatientForm  extends React.Component{
                                         value={nationality}
                                         required
                                     >
-                                        <option selected>
+                                        <option>
                                             Nationality
                                         </option>
                                         <option value="Nigerian">
@@ -461,7 +443,7 @@ class  PatientForm  extends React.Component{
                                         value={state}
                                         required
                                     >
-                                        <option selected>
+                                        <option>
                                             State of Origin
                                         </option>
                                         <option value="Abia">
@@ -584,7 +566,7 @@ class  PatientForm  extends React.Component{
                                     </label>
                                     <input
                                         name='kinPhoneNumber'
-                                        id='phone number'
+                                        id='kinPhoneNumber'
                                         type='text'
                                         placeholder='Enter phone number'
                                         className='form-control'
@@ -637,16 +619,3 @@ class  PatientForm  extends React.Component{
 
 export default PatientForm;
 
-
-
-// const createPatient = async (credentials) => {
-
-//     return fetch('http://localhost:3030/patient/add', {
-//         method: 'post',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(credentials)
-//     }).then(response => response.json()).then(result => result)
-//         .catch(err => console.log(err));
-// }

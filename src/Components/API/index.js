@@ -41,7 +41,7 @@ const deletePatient =  (patientId) => {
 const updatePatient =  (patientId,credentials) => {
 
     return fetch(`http://localhost:3030/patient/update/${patientId}`, {
-        method: 'put',
+        method: 'post',
         headers: {
             'Content-Type': 'application/json'
         },

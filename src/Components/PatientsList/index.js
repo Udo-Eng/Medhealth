@@ -4,10 +4,9 @@ import PatientForm from '../PatientForm/index.js'
 import DeletePatient from '../DeletePatient/index.js'
 
 
-
+// BEGINING OF PATIENT LIST COMPONENT 
 const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePatientHandler}) => {
 
-   
 
     const [createPatient,setCreatePatient] = useState(false);
     const [updatePatient,setUpdatePatient] = useState(null);
@@ -17,13 +16,28 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
    
 
 // function to display the create patient form 
-    const OnClickHandler  = (event) => {
+    const OnClickCreatePatientHandler  = () => {
       setCreatePatient(true);
     }
 
 
-     const deletePatientHandlerFunction = (email) => () => {
-        deletePatientHandler(email);
+// function to display the update patient form 
+    const OnClickUpdatePatientHandler = (Patient) => () => { 
+                                setIsUpdateOpen(true); 
+                                setUpdatePatient(Patient); 
+                            }
+
+
+// function to display the delete  Patient modal  
+    const OnClickDeletePatientHandler = (Patient) => () => { 
+                                setOpen(true); 
+                                setPatientId(Patient._id) 
+                            }
+
+// function to handle the delete patient functionality 
+    const deletePatientHandlerFunction = (patientId) => () => {
+         setOpen(false);
+        deletePatientHandler(patientId);
     }
      
 
@@ -40,9 +54,9 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                 isUpdateOpen ? 
                 <PatientForm 
                 closeForm = {() => setIsUpdateOpen(false)} 
-                btnDisplay="Update Patient" 
                 Data={updatePatient} 
                 headerDisplay="Update Patient"
+                btnDisplay="Update Patient"
                 updatePatientHandler={updatePatientHandler}
                 /> : 
              <>
@@ -68,10 +82,11 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                         </thead>
                         <tbody>
                             {data.map((Patient, index) => {
+                                // Increment the value of index and set it as S/N value 
                                 let SN = ++index;
 
                                 return (
-                                    <tr className='text-center' key={SN}>
+                                    <tr className='text-center' key={Patient._id}>
                                         <th scope='row'>
                                             {SN}
                                         </th>
@@ -90,17 +105,16 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                                         <td>
                                             <button
                                              className='btn bg-green btn-sm'
-                                                onClick={() => { setIsUpdateOpen(true); setUpdatePatient(Patient)}}>
-                                                 <i className="fa fa-edit"></i>
+                                                onClick={OnClickUpdatePatientHandler(Patient)}>
+                                              <i className="fa fa-edit"></i>
                                             </button>
                                         </td>
                                         <td>
                                             <button className='btn bg-green btn-sm '
-                                                onClick={() => { setOpen(true); setPatientId(Patient._id) }}
+                                                onClick={OnClickDeletePatientHandler(Patient)}
                                             >
                                                 <i
                                                     className="fa fa-trash" >
-
                                                 </i>
                                             </button>
                                         </td>
@@ -110,7 +124,7 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                     </table>
                     <button
                         className='btn btn-danger btn-lg float'
-                                onClick={OnClickHandler}
+                                onClick={OnClickCreatePatientHandler}
                     >
                         <i className="fa fa-plus"></i>
                     </button>
@@ -126,21 +140,3 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
 export default PatientsList;
 
 
-
-
-
- // // function to filter the View data 
-    // const filterPatient = (email) => {
-         
-    //   setOpen(false);
-
-    // let NewData = data.filter((patient) => email !== patient.email ).map(patient => patient);
-   
-    // setData(NewData);
-
-    // }
-
-   
-
-
-// const [filtereddata, setData] = useState(data)

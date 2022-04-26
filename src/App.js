@@ -7,33 +7,6 @@ import PatientsList from './Components/PatientsList/index.js';
 
 
 
-// let dumData = [
-//   {
-//     firstName: 'Udochukwu',
-//     lastName: 'Abazie',
-//     phoneNumber: 8045692920,
-//     email: 'udo@gmail.com',
-//   },
-//   {
-//     firstName: 'lily',
-//     lastName: 'Abazie',
-//     phoneNumber: 8045692450,
-//     email: 'lily@gmail.com',
-//   },
-//   {
-//     firstName: 'otito',
-//     lastName: 'Abazie',
-//     phoneNumber: 804569460,
-//     email: 'otito@gmail.com',
-//   },
-//   {
-//     firstName: 'anurichi',
-//     lastName: 'Abazie',
-//     phoneNumber: 8037868236,
-//     email: 'anuri@gmail.com',
-//   }
-// ]
-
 class App extends Component {
 
   constructor(props) {
@@ -55,12 +28,9 @@ class App extends Component {
   }
 
 
-
-
 // method to update the Data state to an array of patients 
   requestPatientsData = async () => { 
     const {register} = this.state;
-    
     if(register){
       getPatients().then(ServerData =>
         this.setState({ data: ServerData.patients })
@@ -94,19 +64,23 @@ class App extends Component {
   // Function to create Patient
   createPatientHandler = async (patientData) => {
 
-     let newData =  await createPatient(patientData);
+     let response =  await createPatient(patientData);
 
-     this.setState({data: newData});
+     if(response.sucess){
+       this.requestPatientsData();
+     }
 
-      return newData;
+      return response;
   }
 
 // function to update patient
   updatePatientHandler = async (patientId,patientData) => {
 
-    let newData = await updatePatient(patientId , patientData);
+    let response = await updatePatient(patientId , patientData);
 
-    this.setState({ data: newData });
+     if(response.sucess){
+       this.requestPatientsData();
+     }
 
   }
 
@@ -114,9 +88,13 @@ class App extends Component {
   // function to delete Patient
 deletePatientHandler = async (patientId) => {
 
-    let newData = await deletePatient(patientId);
+    let response = await deletePatient(patientId);
 
-    this.setState({ data: newData });
+    if(response.sucess){
+      this.setState({data : response.patients});
+    }else{
+      // handle error message here 
+    }
 
   }
 
@@ -124,6 +102,7 @@ deletePatientHandler = async (patientId) => {
 
     const { logIn, register, data, admin } = this.state;
 
+    
     if (logIn) {
       return <Login
         createAdmin={createAdmin}
