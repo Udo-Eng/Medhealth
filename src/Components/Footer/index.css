@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 
 footer{
-    position:fixed;
+    /* position:fixed;
     left:0;
-    bottom:0;
+    bottom:0; */
     width:100vw;
+    height: 18rem;
     display: flex;
     flex-direction:column;
     justify-content: space-between;
     background-color: #41ad2b;
-    padding: 1.5rem 2rem;
+    padding: 0.2rem 2rem;
     
 }
 
@@ -19,3 +20,27 @@ footer p {
     color: #fff;
     font-family: 'Roboto', sans-serif;
 }
+
+  .brand{
+        color: #fff;
+        font-family: 'Roboto', sans-serif;
+        cursor:pointer;
+        font-size: 2.5rem;
+        width: 15rem;
+        margin-top:0.6rem;
+        text-align :center;
+    }
+
+    @media only screen and (max-width:570px){
+            footer{
+                height: auto;
+            }
+
+            .logo{
+                text-align: center;
+            }
+
+            footer p{
+                text-align: center;
+            }
+    }

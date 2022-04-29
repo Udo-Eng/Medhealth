@@ -6,7 +6,8 @@
 
 body{
   /* background-color: #edf5ee; */
-  background-color:lightslategrey;
+  background-color:lightgrey;
    font-family: Roboto, Helvetica, Arial, sans-serif;
+   padding-bottom: 0;
 }
 

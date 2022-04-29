@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import Home from './Components/Home.js'
+import Home from './Components/Home.js';
 import { createPatient, deletePatient, updatePatient, createAdmin, LogInAdmin ,getPatients} from './Components/API/index.js';
 import Login from './Components/Login/index.js';
+import Register from './Components/Register/index.js';
 import PatientsList from './Components/PatientsList/index.js';
+import { Routes, Route,BrowserRouter as Router } from 'react-router-dom';
+
+
 
 
 
@@ -18,13 +22,9 @@ class App extends Component {
         email: '',
       },
       data:[],
-      logIn: false,
-      register: false,
     }
 
     this.setAdmin = this.setAdmin.bind(this);
-    this.setLogIn = this.setLogIn.bind(this);
-    this.setRegister = this.setRegister.bind(this);
   }
 
 
@@ -46,20 +46,6 @@ class App extends Component {
     })
   }
 
-  // Function to set the logIn state for routing 
-  setLogIn(logIn) {
-    this.setState({
-      logIn
-    })
-  }
-
-
- // Function to set the Register state for routing 
-  setRegister(register) {
-    this.setState({
-      register
-    })
-  }
 
   // Function to create Patient
   createPatientHandler = async (patientData) => {
@@ -99,34 +85,39 @@ deletePatientHandler = async (patientId) => {
 
   render() {
 
-    const { logIn, register, data, admin } = this.state;
+    const { data, admin } = this.state;
 
+    return (
+                  <Router>
+                        <Routes>
+                          <Route path='/' index element={<Home />} />
+                          <Route path='login' element={
+                            <Login
+                              createAdmin={createAdmin}
+                              LogInAdmin={LogInAdmin}
+                              setAdmin={this.setAdmin}
+                              requestPatientsData={this.requestPatientsData}
 
-    if (logIn) {
-      return <Login
-        createAdmin={createAdmin}
-        LogInAdmin={LogInAdmin}
-        setAdmin={this.setAdmin}
-        setRegister={this.setRegister}
-        setLogIn={this.setLogIn}
-        requestPatientsData={this.requestPatientsData}
-      />
-    } else if (register) {
-      return <PatientsList
-       data={data} 
-       admin={admin}
-        createPatientHandler={this.createPatientHandler}
-        deletePatientHandler={this.deletePatientHandler}
-        updatePatientHandler={this.updatePatientHandler}
-        setRegister={this.setRegister}
-       />
-    } else {
-      return (
-        <div>
-          <Home setLogIn={this.setLogIn}  />
-        </div>
+                            />
+                          } />
+                          <Route path='patients' element={
+                            <PatientsList
+                              data={data}
+                              admin={admin}
+                              createPatientHandler={this.createPatientHandler}
+                              deletePatientHandler={this.deletePatientHandler}
+                              updatePatientHandler={this.updatePatientHandler}
+                            />
+                          } />
+                          <Route path='register' element={
+                            <Register
+                              createAdmin={createAdmin}
+                            />
+                          }
+                          />
+                        </Routes>
+                  </Router>      
       )
-    }
   }
 }
 

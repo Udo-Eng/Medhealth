@@ -56,8 +56,9 @@ header button{
     cursor:pointer;
     border:none;
     border-radius: 2rem;
-    color: #41ad2b;
     transition : all 0.3s ease 0s;
+     color: #41ad2b;
+     text-decoration: none;
 }
 
 
@@ -65,8 +66,9 @@ header button:hover{
     background-color:  #41ad2b;
     border: 1px solid #fff;
     padding: 0.7rem 1.8rem;
-    color: #fff;
     transition : all 0.3s ease 0s;
+      color: #fff;
+     text-decoration: none;
 }
 
 

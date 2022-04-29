@@ -62,9 +62,9 @@ font-size: 1.2rem;
     color:#fff;
 }
 
-.pointer{
+#pointer{
     cursor: pointer;
-    color: lightskyblue;
+    color: blue;
 }
 
 #btn-log:hover{

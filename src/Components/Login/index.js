@@ -1,19 +1,18 @@
 import React, { useState,useRef } from 'react';
-import Register from '../Register/index.js';
+import {Link} from 'react-router-dom';
 import './index.css';
 
 
 
 
 // Begining of Login component
-const Login = ({ LogInAdmin, setAdmin, createAdmin, setRegister, setLogIn,requestPatientsData}) => {
+const Login = ({ LogInAdmin, setAdmin,requestPatientsData}) => {
 
 const logForm = useRef(null)
 
   // Declaring the Login state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-   const [isRegistered, setIsRegistered] = useState(false);
    const [formClass, setFormClass] = useState("formwidth mb-3");
    const [errorMessage, setErrorMessage] = useState("");
 
@@ -27,11 +26,11 @@ const logForm = useRef(null)
     }
 
     if (!logForm.current.checkValidity()) {
-      console.log("Invalid Form ");
+      
 
       setFormClass(" was-validated formwidth mb-3");
     } else {
-      console.log("Valid Form ");
+      
 
       setFormClass("formwidth mb-3");
 
@@ -40,13 +39,13 @@ const logForm = useRef(null)
       if (result.sucess) {
         // Set the register state  to route to Patients List 
         setAdmin(result.Admin);
-        setLogIn(false);
-        setRegister(true);
+
+        // Comment out the functions performing routing 
         requestPatientsData();
       } else {
         setErrorMessage(result.message);
-        setRegister(false);
-        setLogIn(true);
+        // comment out the functions performing routing 
+       
       }
 
     }
@@ -54,12 +53,7 @@ const logForm = useRef(null)
   }
 
 
-  const onClickHandler = (e) => {
-    setIsRegistered(true);
-  }
-
   return (
-    isRegistered ? <Register setIsRegistered={setIsRegistered}  createAdmin={createAdmin}/> :
       <div className='container '>
       <h1 className=' header ' >Login</h1>
         {errorMessage ? <div className='message-error' >{errorMessage}</div> : <></>}
@@ -113,7 +107,9 @@ const logForm = useRef(null)
             </button>
           </div>
         </form>
-        <p >Have not Registered? <span  onClick={onClickHandler} className='pointer'>Register</span></p>
+        {/* To Add a Link to the Register Component Here */}
+      <p >Have not Registered? <Link to='/register'><span id='pointer'>Register</span></Link></p>
+      <p ><Link to='/'><span id='pointer'>Back to Home</span></Link></p>
       </div>
   )
 }

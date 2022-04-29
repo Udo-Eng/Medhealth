@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
+import {Link} from 'react-router-dom';
 import './index.css';
 
 
 
 // Begining of Register  component
-const Register = ({ createAdmin , setIsRegistered }) => {
+const Register = ({createAdmin}) => {
 
 
     const regForm = useRef(null);
@@ -20,7 +21,6 @@ const Register = ({ createAdmin , setIsRegistered }) => {
 
     const onSubmitHandler = async (e) => {
 
-
         e.preventDefault();
 
         const Admin = {
@@ -31,27 +31,21 @@ const Register = ({ createAdmin , setIsRegistered }) => {
         }
 
         if(!regForm.current.checkValidity()){
-            console.log("Invalid Form ");
 
             setformClass(" was-validated formwidth mb-3");
         }else{
-            console.log("Valid Form ");
-
             setformClass("formwidth mb-3");
-
-            console.log(Admin);
 
             let result = await createAdmin(Admin);
 
-            console.log(result);
 
             if (result.sucess) {
-                // Set the Login state is Registered to true and route to Login Form
-                setIsRegistered(false); 
+            //Route to the  Patient List if authentication was successful  component 
+            // Todo this later 
+
             } else {
-                // Display and error message telling the person to Fillin the form and resgister again
-                setIsRegistered(true)
-                setErrorMessage("Error registering Admin Please Try again")
+                // Display and error message telling the person to re-fill the form and resgister again
+                setErrorMessage("Error registering Admin Please Try again");
 
             }
 
@@ -59,9 +53,7 @@ const Register = ({ createAdmin , setIsRegistered }) => {
 
     }
 
-    const onClickHandler = (e) => {
-        setIsRegistered(false);
-    }
+   
 
     return (
         <div className='container '>
@@ -166,7 +158,8 @@ const Register = ({ createAdmin , setIsRegistered }) => {
                     >
                         Register Admin
                     </button>
-                 <p>Have an account? <span className='pointer' onClick={onClickHandler}> Login</span></p>
+                    <p>Have an account? <Link to='/login'><span id='pointer'>Login</span></Link></p>
+                    <p ><Link to='/'><span id='pointer'>Back to Home</span></Link></p>
                 </div>
             </form>
         </div>

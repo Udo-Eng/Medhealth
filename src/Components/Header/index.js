@@ -1,13 +1,11 @@
 import React from 'react';
-import './index.css'
+import './index.css';
+import {Link} from 'react-router-dom';
 
 const Header = (props) => {
 
-    const {setLogIn} = props;
 
-   const  onClickHandler = () =>{
-        setLogIn(true);
-    }
+
 
     return (
         <header>        
@@ -17,7 +15,7 @@ const Header = (props) => {
                 <li className="navbar-item"><p >About</p></li>
                 <li className="navbar-item" ><p>Services</p></li>
                 </ul> 
-            <button className="cta" onClick={onClickHandler}>Login</button>
+            <Link to='/login'><button className="cta">Login</button></Link>
         </header>
     )
 }

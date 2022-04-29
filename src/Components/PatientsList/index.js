@@ -52,12 +52,12 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
         <>
                 { 
                 isUpdateOpen ? 
-                <PatientForm 
-                closeForm = {() => setIsUpdateOpen(false)} 
-                Data={updatePatient} 
-                headerDisplay="Update Patient"
-                btnDisplay="Update Patient"
-                updatePatientHandler={updatePatientHandler}
+                        <PatientForm 
+                        closeForm = {() => setIsUpdateOpen(false)} 
+                        Data={updatePatient} 
+                        headerDisplay="Update Patient"
+                        btnDisplay="Update Patient"
+                        updatePatientHandler={updatePatientHandler}
                 /> : 
              <>
                     <DeletePatient
