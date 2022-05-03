@@ -10,6 +10,33 @@ import { Routes, Route,BrowserRouter as Router } from 'react-router-dom';
 
 
 
+// Working with HOC in React 
+/* 
+const withConditionalFeedback =
+  ({ loadingFeedback, noDataFeedback, dataEmptyFeedback }) =>
+    (Component) =>
+      (props) => {
+        if (props.isLoading)
+          return <div>{loadingFeedback || 'Loading data.'}</div>;
+
+        if (!props.data)
+          return <div>{noDataFeedback || 'No data loaded yet.'}</div>;
+
+        if (!props.data.length)
+          return <div>{dataEmptyFeedback || 'Data is empty.'}</div>;
+
+        return <Component {...props} />;
+      };
+ */
+
+      // A SAMPLE EXAMPLE OF HOC IN REACT 
+
+/* 
+const TodoList = withConditionalFeedback({
+  loadingFeedback: 'Loading Todos.',
+  noDataFeedback: 'No Todos loaded yet.',
+  dataEmptyFeedback: 'Todos are empty.',
+})(BaseTodoList); */
 
 class App extends Component {
 
@@ -86,6 +113,9 @@ deletePatientHandler = async (patientId) => {
   render() {
 
     const { data, admin } = this.state;
+
+    console.log("Data :",data);
+    console.log("admin :",admin);
 
     return (
                   <Router>

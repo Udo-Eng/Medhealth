@@ -1,6 +1,8 @@
 import React, { useState,useRef } from 'react';
 import {Link} from 'react-router-dom';
 import './index.css';
+import Loading from '../Loading/index.js';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -8,22 +10,26 @@ import './index.css';
 // Begining of Login component
 const Login = ({ LogInAdmin, setAdmin,requestPatientsData}) => {
 
-const logForm = useRef(null)
+let navigate = useNavigate();
+
+const logForm = useRef(null);
 
   // Declaring the Login state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
    const [formClass, setFormClass] = useState("formwidth mb-3");
    const [errorMessage, setErrorMessage] = useState("");
+   const [isLoading, setIsLoading] = useState(false);
 
 
   const onSubmitHandler = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
 
     const  AdminDetails = {
       email,
       password
-    }
+    };
 
     if (!logForm.current.checkValidity()) {
       
@@ -39,19 +45,23 @@ const logForm = useRef(null)
       if (result.sucess) {
         // Set the register state  to route to Patients List 
         setAdmin(result.Admin);
-
+        setIsLoading(false); 
+        
         // Comment out the functions performing routing 
         requestPatientsData();
+        // Navigate to patients page
+        navigate('/patients');
       } else {
         setErrorMessage(result.message);
         // comment out the functions performing routing 
-       
+        setIsLoading(false);
       }
 
     }
 
   }
 
+if(isLoading) return <Loading/>
 
   return (
       <div className='container '>

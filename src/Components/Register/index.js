@@ -1,13 +1,18 @@
 import React, { useState, useRef } from 'react';
 import {Link} from 'react-router-dom';
 import './index.css';
+import Loading from '../Loading/index.js';
+import { useNavigate } from "react-router-dom";
 
 
 
 // Begining of Register  component
 const Register = ({createAdmin}) => {
 
+    // Cal the useNavigate function to return a navigator function 
+    let navigate = useNavigate();
 
+    // Refrencing a dom element 
     const regForm = useRef(null);
 
     // Declaring the Register state
@@ -17,10 +22,11 @@ const Register = ({createAdmin}) => {
     const [password, setPassword] = useState('');
     const [formClass, setformClass] = useState('formwidth mb-3');
     const [errorMessage, setErrorMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const onSubmitHandler = async (e) => {
-
+        setIsLoading(true);
         e.preventDefault();
 
         const Admin = {
@@ -33,6 +39,8 @@ const Register = ({createAdmin}) => {
         if(!regForm.current.checkValidity()){
 
             setformClass(" was-validated formwidth mb-3");
+            setIsLoading(false);
+
         }else{
             setformClass("formwidth mb-3");
 
@@ -42,18 +50,20 @@ const Register = ({createAdmin}) => {
             if (result.sucess) {
             //Route to the  Patient List if authentication was successful  component 
             // Todo this later 
+            setIsLoading(false);
+                navigate('/login');
 
             } else {
                 // Display and error message telling the person to re-fill the form and resgister again
                 setErrorMessage("Error registering Admin Please Try again");
-
+                setIsLoading(false);
             }
 
         }
 
     }
 
-   
+    if(isLoading) return <Loading />   
 
     return (
         <div className='container '>
@@ -145,6 +155,7 @@ const Register = ({createAdmin}) => {
                         onChange={e => setPassword(e.target.value)}
                         placeholder='Enter your password'
                         className='form-control'
+                        required
                     />
                     <div className="invalid-feedback">
                         Please enter valid password

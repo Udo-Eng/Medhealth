@@ -1,7 +1,8 @@
 import React,{useState} from 'react';
-import './index.css'
-import PatientForm from '../PatientForm/index.js'
-import DeletePatient from '../DeletePatient/index.js'
+import './index.css';
+import PatientForm from '../PatientForm/index.js';
+import DeletePatient from '../DeletePatient/index.js';
+import {Link} from 'react-router-dom';
 
 
 // BEGINING OF PATIENT LIST COMPONENT 
@@ -70,7 +71,7 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                                 <h1 style={{ textAlign: 'center' }}>
                                     Patients Records
                                 </h1>
-                                <button className="cta " onClick={() => { setRegister(false) }}>Logout</button>
+                                <Link to='/'><button className="cta">Logout</button></Link>
                     </header>
                    
                     <table className='table table-hover ' >
