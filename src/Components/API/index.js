@@ -39,7 +39,7 @@ const deletePatient =  (patientId) => {
 
 const updatePatient =  (patientId,credentials) => {
 
-    return fetch(`https://medhealth-api-1.herokuapp.com/update/${patientId}`, {
+    return fetch(`https://medhealth-api-1.herokuapp.com/patient/update/${patientId}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
