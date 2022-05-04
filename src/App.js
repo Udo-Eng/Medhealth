@@ -4,9 +4,9 @@ import Home from './Components/Home.js';
 import { createPatient, deletePatient, updatePatient, createAdmin, LogInAdmin ,getPatients} from './Components/API/index.js';
 import Login from './Components/Login/index.js';
 import Register from './Components/Register/index.js';
+import AuthMessage from './Components/AuthMessage/index.js';
 import PatientsList from './Components/PatientsList/index.js';
-import { Routes, Route,BrowserRouter as Router } from 'react-router-dom';
-
+import { Routes, Route, BrowserRouter as Router} from 'react-router-dom';
 
 
 
@@ -38,6 +38,8 @@ const TodoList = withConditionalFeedback({
   dataEmptyFeedback: 'Todos are empty.',
 })(BaseTodoList); */
 
+
+
 class App extends Component {
 
   constructor(props) {
@@ -48,26 +50,36 @@ class App extends Component {
         lastName: '',
         email: '',
       },
+     
       data:[],
     }
-
-    this.setAdmin = this.setAdmin.bind(this);
   }
 
+  
 
-// method to update the Data state to an array of patients 
+// method to update the Data state to an array of patients data  
   requestPatientsData = async () => { 
-    const {register} = this.state;
-    if(register){
-      getPatients().then(ServerData =>
-        this.setState({ data: ServerData.patients })
+ 
+     let  {admin} = this.state;
+     let firstName = admin.firstName || localStorage.getItem('Admin');
+    
+    if(firstName !== ''|| firstName !== undefined){
+      getPatients().then(ServerData =>{
+            this.setState({ data: ServerData.patients});
+          
+          }
       );
     } 
 
 }
 
 // Function to set the Admin state 
-  setAdmin(admin) {
+ setAdmin = (admin) => {
+
+   let firstName = JSON.stringify(admin.firstName)
+  
+  localStorage.setItem('Admin',firstName);
+
     this.setState({
       admin
     })
@@ -110,12 +122,13 @@ deletePatientHandler = async (patientId) => {
     }
   }
 
+
+
   render() {
 
-    const { data, admin } = this.state;
+    const { data, admin} = this.state;
 
-    console.log("Data :",data);
-    console.log("admin :",admin);
+    let firstName = localStorage.getItem('Admin')
 
     return (
                   <Router>
@@ -130,15 +143,22 @@ deletePatientHandler = async (patientId) => {
 
                             />
                           } />
-                          <Route path='patients' element={
-                            <PatientsList
-                              data={data}
-                              admin={admin}
-                              createPatientHandler={this.createPatientHandler}
-                              deletePatientHandler={this.deletePatientHandler}
-                              updatePatientHandler={this.updatePatientHandler}
-                            />
-                          } />
+                          {
+                            ( firstName &&  
+                                <Route path='patients' element={
+                                  <PatientsList
+                                    data={data}
+                                    requestPatientsData={this.requestPatientsData}
+                                    admin={admin}
+                                    createPatientHandler={this.createPatientHandler}
+                                    deletePatientHandler={this.deletePatientHandler}
+                                    updatePatientHandler={this.updatePatientHandler}
+                                  />
+                                } /> )|| 
+                                <Route path='patients' element={
+                                 <AuthMessage />
+                                } />
+                     }
                           <Route path='register' element={
                             <Register
                               createAdmin={createAdmin}

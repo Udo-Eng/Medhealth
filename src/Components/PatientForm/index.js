@@ -1,10 +1,10 @@
 import React  from 'react';
-import './index.css'
+import './index.css';
+import Loading from '../Loading/index.js';
 
 
 
 // Declaring global variables 
-let  closeFormFunction = null;
 let  updatePatientData = null;
 
 
@@ -33,8 +33,13 @@ class  PatientForm  extends React.Component{
            kinResidentialAddress: "",
            errorMessage: "",
            formClass : 'formwidth',
-           UpdatePatient:false
+           isLoading: false
         }
+    }
+
+    // Function to set Loading State
+    setIsLoading = (isLoading) => {
+        this.setState({isLoading});
     }
 
 // function to handle change in input parameters 
@@ -46,47 +51,49 @@ class  PatientForm  extends React.Component{
 
 // Function to handle form submission 
     onSubmitHandler = async (e) => {
-
+        this.setIsLoading(true);
         let { PatientHandler,createPatient,updatePatientHandler,Data} = this.props;
         
                  e.preventDefault();
 
                     if(!this.form.checkValidity()) {
                     
-                        console.error('Invalid Form');
+                        this.setIsLoading(false);
                         this.setState({ formClass : 'formwidth was-validated'});
                         
                     }else{
                         
                     this.setState({ formClass : 'formwidth'});
 
-                    console.info('Valid Form');
                     
                     let patientInfo = Object.assign({},this.state);
 
-                    // Declare the response variable 
-                    
-
-                    if (createPatient){
+                
+        
+                    if(createPatient){
                       let  response = await PatientHandler(patientInfo);
 
                         if (response.sucess) {
+                            this.setIsLoading(false);
                             this.setState({ errorMessage: null });
                         } else {
+                            this.setIsLoading(false);
                             this.setState({ errorMessage: response.message });
                         }
                     }else{
                         let id = Data._id;
                         let  response = await updatePatientHandler(id,patientInfo);
                         if (response.sucess) {
+                            this.setIsLoading(false);
                             this.setState({ errorMessage: null });
                         } else {
+                            this.setIsLoading(false);
                             this.setState({ errorMessage: response.message });
                         }
                     } 
 
                      // function to close form;
-                        closeFormFunction();
+                        this.props.closeForm();  
 
                 }
      
@@ -111,7 +118,7 @@ class  PatientForm  extends React.Component{
 
         // Setting Global Variables to update state
         updatePatientData = Data
-        closeFormFunction = closeForm;
+     
 
 
         const { hospital,
@@ -133,8 +140,12 @@ class  PatientForm  extends React.Component{
             kinRelationship,
             kinResidentialAddress,
             formClass,
-            errorMessage
+            errorMessage,
+            isLoading
         }  = this.state;
+
+
+        if(isLoading) return <Loading/>
 
         return (
             <div className='reg-container '>

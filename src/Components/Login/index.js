@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 // Begining of Login component
 const Login = ({ LogInAdmin, setAdmin,requestPatientsData}) => {
 
-let navigate = useNavigate();
+
 
 const logForm = useRef(null);
 
@@ -20,6 +20,8 @@ const logForm = useRef(null);
    const [formClass, setFormClass] = useState("formwidth mb-3");
    const [errorMessage, setErrorMessage] = useState("");
    const [isLoading, setIsLoading] = useState(false);
+
+   let navigate = useNavigate();
 
 
   const onSubmitHandler = async (e) => {
@@ -41,16 +43,20 @@ const logForm = useRef(null);
       setFormClass("formwidth mb-3");
 
       const result = await LogInAdmin(AdminDetails);
-
+    
       if (result.sucess) {
         // Set the register state  to route to Patients List 
-        setAdmin(result.Admin);
-        setIsLoading(false); 
         
-        // Comment out the functions performing routing 
-        requestPatientsData();
-        // Navigate to patients page
-        navigate('/patients');
+        setAdmin(result.admin);
+    
+        // Request Patient Data an set the Loading state
+       await requestPatientsData();
+
+      //  Set Loading state to false and navigate to the patients Lists
+          setIsLoading(false);
+          navigate('/patients');
+
+          
       } else {
         setErrorMessage(result.message);
         // comment out the functions performing routing 
@@ -105,6 +111,7 @@ if(isLoading) return <Loading/>
               onChange={e => setPassword(e.target.value)}
               placeholder='Enter your password'
               className='form-control'
+              autoComplete="true"
             />
           </div>
           <div className="d-grid gap-2" >
