@@ -1,65 +1,83 @@
 import React, { useState,useRef } from 'react';
-import Register from '../Register/index.js';
+import {Link} from 'react-router-dom';
 import './index.css';
+import Loading from '../Loading/index.js';
+import { useNavigate } from "react-router-dom";
 
 
 
 
 // Begining of Login component
-const Login = ({ LogInAdmin, setAdmin, createAdmin, setRegister, setLogIn,requestPatientsData}) => {
+const Login = ({ LogInAdmin, setAdmin,requestPatientsData}) => {
 
-const logForm = useRef(null)
+
+
+const logForm = useRef(null);
 
   // Declaring the Login state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-   const [isRegistered, setIsRegistered] = useState(false);
    const [formClass, setFormClass] = useState("formwidth mb-3");
    const [errorMessage, setErrorMessage] = useState("");
+   const [isLoading, setIsLoading] = useState(false);
+
+   let navigate = useNavigate();
 
 
   const onSubmitHandler = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
 
     const  AdminDetails = {
       email,
       password
-    }
+    };
 
     if (!logForm.current.checkValidity()) {
-      console.log("Invalid Form ");
+      
 
       setFormClass(" was-validated formwidth mb-3");
     } else {
-      console.log("Valid Form ");
+      
 
       setFormClass("formwidth mb-3");
+        try{
+            const result = await LogInAdmin(AdminDetails);
 
-      const result = await LogInAdmin(AdminDetails);
+          if (result.sucess) {
+            // Set the register state  to route to Patients List 
 
-      if (result.sucess) {
-        // Set the register state  to route to Patients List 
-        setAdmin(result.Admin);
-        setLogIn(false);
-        setRegister(true);
-        requestPatientsData();
-      } else {
-        setErrorMessage(result.message);
-        setRegister(false);
-        setLogIn(true);
-      }
+            setAdmin(result.admin);
 
+            // Request Patient Data an set the Loading state
+            await requestPatientsData();
+
+            //  Set Loading state to false and navigate to the patients Lists
+            setIsLoading(false);
+            navigate('/patients');
+
+
+          } else {
+            setErrorMessage(result.message);
+            // comment out the functions performing routing 
+           
+            setIsLoading(false);
+          }
+
+        }catch(err){
+          setErrorMessage("No internet connection");
+          setIsLoading(false);
+        }
+            
+    
+      
     }
 
   }
 
-
-  const onClickHandler = (e) => {
-    setIsRegistered(true);
-  }
+if(isLoading) return <Loading/>
 
   return (
-    isRegistered ? <Register setIsRegistered={setIsRegistered}  createAdmin={createAdmin}/> :
       <div className='container '>
       <h1 className=' header ' >Login</h1>
         {errorMessage ? <div className='message-error' >{errorMessage}</div> : <></>}
@@ -101,6 +119,7 @@ const logForm = useRef(null)
               onChange={e => setPassword(e.target.value)}
               placeholder='Enter your password'
               className='form-control'
+              autoComplete="true"
             />
           </div>
           <div className="d-grid gap-2" >
@@ -113,7 +132,9 @@ const logForm = useRef(null)
             </button>
           </div>
         </form>
-        <p >Have not Registered? <span  onClick={onClickHandler} className='pointer'>Register</span></p>
+        {/* To Add a Link to the Register Component Here */}
+      <p >Have not Registered? <Link to='/register'><span id='pointer'>Register</span></Link></p>
+      <p ><Link to='/'><span id='pointer'>Back to Home</span></Link></p>
       </div>
   )
 }

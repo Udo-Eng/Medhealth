@@ -5,12 +5,12 @@ import MainContent from './MainContent/index.js';
 
 
 
-const Home = ({ setLogIn }) => {
+const Home = () => {
 
     return (
         <div style={divStyle}>
-            <Header setLogIn={setLogIn} />
-            <MainContent setLogIn={setLogIn} />
+            <Header/>
+            <MainContent/>
             <Footer />
         </div>
     )

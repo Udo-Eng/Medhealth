@@ -1,11 +1,28 @@
 import React  from 'react';
-import './index.css'
+import './index.css';
+import Loading from '../Loading/index.js';
 
 
 
 // Declaring global variables 
-let  closeFormFunction = null;
 let  updatePatientData = null;
+
+
+// Helper function to convert Date from Database to string value  
+function convertToYYYYMMDD(d) {
+    let date = new Date(d);
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let dt = date.getDate();
+
+    if (dt < 10) {
+        dt = '0' + dt;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    return (year + '-' + month + '-' + dt);
+}
 
 
 // Begining of Form Component
@@ -33,8 +50,13 @@ class  PatientForm  extends React.Component{
            kinResidentialAddress: "",
            errorMessage: "",
            formClass : 'formwidth',
-           UpdatePatient:false
+           isLoading: false
         }
+    }
+
+    // Function to set Loading State
+    setIsLoading = (isLoading) => {
+        this.setState({isLoading});
     }
 
 // function to handle change in input parameters 
@@ -44,49 +66,74 @@ class  PatientForm  extends React.Component{
         this.setState({ [name] : value});
     }
 
+// Function to automatically set the date using the Dob 
+    onChangeSetAge = (event) => {
+        
+        event.preventDefault();
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
+
+        let currentDate = new Date();
+
+        let personBirthAge = new Date(value);
+
+        let age = currentDate.getFullYear() - personBirthAge.getFullYear();
+
+        this.setState({age});
+
+    }
 // Function to handle form submission 
     onSubmitHandler = async (e) => {
 
+        this.setIsLoading(true);
         let { PatientHandler,createPatient,updatePatientHandler,Data} = this.props;
         
                  e.preventDefault();
 
                     if(!this.form.checkValidity()) {
                     
-                        console.error('Invalid Form');
+                        this.setIsLoading(false);
                         this.setState({ formClass : 'formwidth was-validated'});
                         
-                    }else{
+            }
+            else{
                         
-                    this.setState({ formClass : 'formwidth'});
+                                this.setState({ formClass : 'formwidth'});
 
-                    console.info('Valid Form');
-                    
-                    let patientInfo = Object.assign({},this.state);
+                                
+                                let patientInfo = Object.assign({},this.state);
 
-                    // Declare the response variable 
-                    
+                
+                        try{
+                                if (createPatient) {
+                                    let response = await PatientHandler(patientInfo);
 
-                    if (createPatient){
-                      let  response = await PatientHandler(patientInfo);
+                                    if (response.sucess) {
+                                        this.setIsLoading(false);
+                                        this.setState({ errorMessage: null });
+                                    } else {
+                                        this.setIsLoading(false);
+                                        this.setState({ errorMessage: response.message });
+                                    }
+                                } else {
+                                    let id = Data._id;
+                                    let response = await updatePatientHandler(id, patientInfo);
 
-                        if (response.sucess) {
-                            this.setState({ errorMessage: null });
-                        } else {
-                            this.setState({ errorMessage: response.message });
-                        }
-                    }else{
-                        let id = Data._id;
-                        let  response = await updatePatientHandler(id,patientInfo);
-                        if (response.sucess) {
-                            this.setState({ errorMessage: null });
-                        } else {
-                            this.setState({ errorMessage: response.message });
-                        }
-                    } 
+                                    if (response.sucess) {
+                                        this.setIsLoading(false);
+                                        this.setState({ errorMessage: null });
+                                    } else {
+                                        this.setIsLoading(false);
+                                        this.setState({ errorMessage: response.message });
+                                    }
+                                }
+                            } catch(err){
+                                this.setState({ errorMessage:'No internet connection'});
+                                this.setIsLoading(false);
+                            } 
 
                      // function to close form;
-                        closeFormFunction();
+                        this.props.closeForm();  
 
                 }
      
@@ -95,7 +142,16 @@ class  PatientForm  extends React.Component{
     // Function to handle update functionality 
     UpdateFormHandler = (updatePatientData) => {
         if(updatePatientData !== null){
-            this.setState(updatePatientData);
+
+            let {dob} = updatePatientData;
+ 
+          
+
+        
+
+            dob = convertToYYYYMMDD(dob); 
+
+            this.setState({...updatePatientData,dob});
         }
     }
 
@@ -111,7 +167,7 @@ class  PatientForm  extends React.Component{
 
         // Setting Global Variables to update state
         updatePatientData = Data
-        closeFormFunction = closeForm;
+     
 
 
         const { hospital,
@@ -133,8 +189,13 @@ class  PatientForm  extends React.Component{
             kinRelationship,
             kinResidentialAddress,
             formClass,
-            errorMessage
+            errorMessage,
+            isLoading
         }  = this.state;
+
+        
+
+        if(isLoading) return <Loading/>
 
         return (
             <div className='reg-container '>
@@ -323,7 +384,7 @@ class  PatientForm  extends React.Component{
                                         placeholder='Select Date of Birth'
                                         className='form-control'
                                         value={dob}
-                                        onChange={this.handleChange}
+                                        onChange={this.onChangeSetAge}
                                         required
                                     />
                                     <div className="invalid-feedback">
@@ -343,8 +404,8 @@ class  PatientForm  extends React.Component{
                                         placeholder="Enter your  Age"
                                         className='form-control'
                                         value={age}
-                                        onChange={this.handleChange}
                                         required
+                                        readOnly={true}
                                     />
                                     <div className="invalid-feedback">
                                         Please enter age

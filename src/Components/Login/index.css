@@ -37,6 +37,7 @@ form button {
     align-content: center;
     justify-content: center;
 }
+
 #logIn-form label{
 font-size: 1.2rem;
 }
@@ -47,10 +48,17 @@ font-size: 1.2rem;
     color:#fff;
 }
 
-.pointer{
+#pointer{
     cursor: pointer;
-    color: lightskyblue;
+    color: blue;
 }
+
+
+a{
+    text-decoration:none;
+     
+}
+
 
 #btn-log:hover{
 color: #fff;

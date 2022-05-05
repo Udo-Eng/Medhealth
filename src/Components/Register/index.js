@@ -1,12 +1,18 @@
 import React, { useState, useRef } from 'react';
+import {Link} from 'react-router-dom';
 import './index.css';
+import Loading from '../Loading/index.js';
+import { useNavigate } from "react-router-dom";
 
 
 
 // Begining of Register  component
-const Register = ({ createAdmin , setIsRegistered }) => {
+const Register = ({createAdmin}) => {
 
+    // Cal the useNavigate function to return a navigator function 
+    let navigate = useNavigate();
 
+    // Refrencing a dom element 
     const regForm = useRef(null);
 
     // Declaring the Register state
@@ -16,11 +22,11 @@ const Register = ({ createAdmin , setIsRegistered }) => {
     const [password, setPassword] = useState('');
     const [formClass, setformClass] = useState('formwidth mb-3');
     const [errorMessage, setErrorMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const onSubmitHandler = async (e) => {
-
-
+        setIsLoading(true);
         e.preventDefault();
 
         const Admin = {
@@ -31,37 +37,37 @@ const Register = ({ createAdmin , setIsRegistered }) => {
         }
 
         if(!regForm.current.checkValidity()){
-            console.log("Invalid Form ");
 
             setformClass(" was-validated formwidth mb-3");
+            setIsLoading(false);
+
         }else{
-            console.log("Valid Form ");
-
             setformClass("formwidth mb-3");
+            try{
+                let result = await createAdmin(Admin);
 
-            console.log(Admin);
 
-            let result = await createAdmin(Admin);
+                if (result.sucess) {
+                    //Route to the  Patient List if authentication was successful  component 
+                    // Todo this later 
+                    setIsLoading(false);
+                    navigate('/login');
 
-            console.log(result);
+                } else {
+                    // Display and error message telling the person to re-fill the form and resgister again
+                    setErrorMessage("Error registering Admin Please Try again");
+                    setIsLoading(false);
+                }
 
-            if (result.sucess) {
-                // Set the Login state is Registered to true and route to Login Form
-                setIsRegistered(false); 
-            } else {
-                // Display and error message telling the person to Fillin the form and resgister again
-                setIsRegistered(true)
-                setErrorMessage("Error registering Admin Please Try again")
-
-            }
-
+            }catch(err){
+                setErrorMessage("No Internet connection");
+                setIsLoading(false); 
+            } 
         }
 
     }
 
-    const onClickHandler = (e) => {
-        setIsRegistered(false);
-    }
+    if(isLoading) return <Loading />   
 
     return (
         <div className='container '>
@@ -153,6 +159,7 @@ const Register = ({ createAdmin , setIsRegistered }) => {
                         onChange={e => setPassword(e.target.value)}
                         placeholder='Enter your password'
                         className='form-control'
+                        required
                     />
                     <div className="invalid-feedback">
                         Please enter valid password
@@ -166,7 +173,8 @@ const Register = ({ createAdmin , setIsRegistered }) => {
                     >
                         Register Admin
                     </button>
-                 <p>Have an account? <span className='pointer' onClick={onClickHandler}> Login</span></p>
+                    <p>Have an account? <Link to='/login'><span id='pointer'>Login</span></Link></p>
+                    <p ><Link to='/'><span id='pointer'>Back to Home</span></Link></p>
                 </div>
             </form>
         </div>

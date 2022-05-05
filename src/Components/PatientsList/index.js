@@ -1,11 +1,12 @@
 import React,{useState} from 'react';
-import './index.css'
-import PatientForm from '../PatientForm/index.js'
-import DeletePatient from '../DeletePatient/index.js'
+import './index.css';
+import PatientForm from '../PatientForm/index.js';
+import DeletePatient from '../DeletePatient/index.js';
+import {Link} from 'react-router-dom';
 
 
 // BEGINING OF PATIENT LIST COMPONENT 
-const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePatientHandler,setRegister}) => {
+const PatientsList = ({ data, createPatientHandler, deletePatientHandler, updatePatientHandler,requestPatientsData}) => {
 
 
     const [createPatient,setCreatePatient] = useState(false);
@@ -13,6 +14,7 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
     const [patientId,setPatientId] = useState('');
     const [isUpdateOpen,setIsUpdateOpen] = useState(false);
     const [isOpen,setOpen] = useState(false);
+  
    
 
 // function to display the create patient form 
@@ -40,41 +42,44 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
         deletePatientHandler(patientId);
     }
      
+    if(!data.length){
+        requestPatientsData();
+    }
 
-    return (
-         createPatient ? <PatientForm  
-         closeForm={()=> setCreatePatient(false)}
-         btnDisplay="Create Patient"
-         headerDisplay="Patient Registration"
-         createPatient={createPatient}
-         PatientHandler={createPatientHandler}
-          /> :
-        <>
+
+return (
+        createPatient ? <PatientForm  
+        closeForm={()=> setCreatePatient(false)}
+        btnDisplay="Create Patient"
+        headerDisplay="Patient Registration"
+        createPatient={createPatient}
+        PatientHandler={createPatientHandler}
+        /> :
+            <>
                 { 
-                isUpdateOpen ? 
-                <PatientForm 
-                closeForm = {() => setIsUpdateOpen(false)} 
-                Data={updatePatient} 
-                headerDisplay="Update Patient"
-                btnDisplay="Update Patient"
-                updatePatientHandler={updatePatientHandler}
-                /> : 
-             <>
-                    <DeletePatient
-                        patientId={patientId}
-                        isOpen={isOpen}
-                        Close={() => setOpen(false)}
-                        deletePatientHandlerFunction={deletePatientHandlerFunction}
-                    />
-                            <header className="d-flex header-bg">
-                                <h1 style={{ textAlign: 'center' }}>
-                                    Patients Records
-                                </h1>
-                                <button className="cta " onClick={() => { setRegister(false) }}>Logout</button>
-                    </header>
-                   
+                        isUpdateOpen ? 
+                                <PatientForm 
+                                closeForm = {() => setIsUpdateOpen(false)} 
+                                Data={updatePatient} 
+                                headerDisplay="Update Patient"
+                                btnDisplay="Update Patient"
+                                updatePatientHandler={updatePatientHandler}
+                        /> : 
+                        <>
+                                    <DeletePatient
+                                        patientId={patientId}
+                                        isOpen={isOpen}
+                                        Close={() => setOpen(false)}
+                                        deletePatientHandlerFunction={deletePatientHandlerFunction}
+                                    />
+                                            <header className="d-flex header-bg">
+                                                <h1 style={{ textAlign: 'center' }}>
+                                                    Patients Records
+                                                </h1>
+                                                <Link to='/'><button className="cta" onClick={()=>{localStorage.removeItem('Admin')}}>Logout</button></Link>
+                                    </header>
+                        
                     <table className='table table-hover ' >
-
                         <thead className='header-bg'>
                             <tr className='text-center'>
                                 <th scope='col'>S/N</th>
@@ -88,44 +93,46 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                         </thead>
                         <tbody>
                             {data.map((Patient, index) => {
-                                // Increment the value of index and set it as S/N value 
-                                let SN = ++index;
+                                            // Increment the value of index and set it as S/N value 
+                                            let SN = ++index;
 
-                                return (
-                                    <tr className='text-center' key={Patient._id}>
-                                        <th scope='row'>
-                                            {SN}
-                                        </th>
-                                        <td>
-                                            {Patient.firstName}
-                                        </td>
-                                        <td>
-                                            {Patient.lastName}
-                                        </td>
-                                        <td>
-                                            {Patient.phoneNumber}
-                                        </td>
-                                        <td>
-                                            {Patient.email}
-                                        </td>
-                                        <td>
-                                            <button
-                                             className='btn bg-green btn-sm'
-                                                onClick={OnClickUpdatePatientHandler(Patient)}>
-                                              <i className="fa fa-edit"></i>
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button className='btn bg-green btn-sm '
-                                                onClick={OnClickDeletePatientHandler(Patient)}
-                                            >
-                                                <i
-                                                    className="fa fa-trash" >
-                                                </i>
-                                            </button>
-                                        </td>
-                                    </tr>)
-                            })}
+                                            return (
+                                                <tr className='text-center' key={Patient._id}>
+                                                    <th scope='row'>
+                                                        {SN}
+                                                    </th>
+                                                    <td>
+                                                        {Patient.firstName}
+                                                    </td>
+                                                    <td>
+                                                        {Patient.lastName}
+                                                    </td>
+                                                    <td>
+                                                        {Patient.phoneNumber}
+                                                    </td>
+                                                    <td>
+                                                        {Patient.email}
+                                                    </td>
+                                                    <td>
+                                                        <button
+                                                            className='btn bg-green btn-sm'
+                                                            onClick={OnClickUpdatePatientHandler(Patient)}>
+                                                            <i className="fa fa-edit"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button className='btn bg-green btn-sm '
+                                                            onClick={OnClickDeletePatientHandler(Patient)}
+                                                        >
+                                                            <i
+                                                                className="fa fa-trash" >
+                                                            </i>
+                                                        </button>
+                                                    </td>
+                                                </tr>)
+                                        })
+                                }
+                        
                         </tbody>
                     </table>
                     <button
@@ -134,15 +141,14 @@ const PatientsList = ({data,createPatientHandler,deletePatientHandler,updatePati
                     >
                         <i className="fa fa-plus"></i>
                     </button>
-             </>   
-}
-        </>
-                        
+                </>   
+            }
+
+        </>  
     )
 }
 
 
 
 export default PatientsList;
-
 

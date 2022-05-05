@@ -25,7 +25,7 @@ const DeletePatient  = (props) => {
                              </button>
                         </div>
                         <div className="text-content">
-                              Are you sure you want to permanently  delete this patient 
+                              Are you sure you want to permanently  delete this patient data
                         </div>
                         <div className="actions">
                             <button 

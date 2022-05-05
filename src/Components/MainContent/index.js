@@ -1,13 +1,8 @@
 import ImageSource from '../../assets/MediHealth.jpg';
+import {Link} from 'react-router-dom';
 import './index.css'
 
-const MainContent = ({ setLogIn}) => {
-
-
-
-    const onClickHandler = (e) => {
-        setLogIn(true);
-    }
+const MainContent = () => {
 
     return (
         <div className="content">
@@ -20,7 +15,7 @@ const MainContent = ({ setLogIn}) => {
                     With our Dedicated Staff we offer  the best Hospital Service in Nigeria
                     while don't you Register with us and find out more
                 </p>
-                <button onClick={onClickHandler}>Register Now</button>
+                <Link to='/register'><button>Register Now</button></Link>
             </div>    
         </div>
     )
