@@ -43,22 +43,26 @@ const Register = ({createAdmin}) => {
 
         }else{
             setformClass("formwidth mb-3");
+            try{
+                let result = await createAdmin(Admin);
 
-            let result = await createAdmin(Admin);
 
+                if (result.sucess) {
+                    //Route to the  Patient List if authentication was successful  component 
+                    // Todo this later 
+                    setIsLoading(false);
+                    navigate('/login');
 
-            if (result.sucess) {
-            //Route to the  Patient List if authentication was successful  component 
-            // Todo this later 
-            setIsLoading(false);
-                navigate('/login');
+                } else {
+                    // Display and error message telling the person to re-fill the form and resgister again
+                    setErrorMessage("Error registering Admin Please Try again");
+                    setIsLoading(false);
+                }
 
-            } else {
-                // Display and error message telling the person to re-fill the form and resgister again
-                setErrorMessage("Error registering Admin Please Try again");
-                setIsLoading(false);
-            }
-
+            }catch(err){
+                setErrorMessage("No Internet connection");
+                setIsLoading(false); 
+            } 
         }
 
     }

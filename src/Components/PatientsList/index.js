@@ -47,102 +47,102 @@ const PatientsList = ({ data, createPatientHandler, deletePatientHandler, update
     }
 
 
-    return (
-         createPatient ? <PatientForm  
-         closeForm={()=> setCreatePatient(false)}
-         btnDisplay="Create Patient"
-         headerDisplay="Patient Registration"
-         createPatient={createPatient}
-         PatientHandler={createPatientHandler}
-          /> :
-        <>
-                        { 
-                                        isUpdateOpen ? 
-                                                <PatientForm 
-                                                closeForm = {() => setIsUpdateOpen(false)} 
-                                                Data={updatePatient} 
-                                                headerDisplay="Update Patient"
-                                                btnDisplay="Update Patient"
-                                                updatePatientHandler={updatePatientHandler}
-                                        /> : 
-                              <>
-                                            <DeletePatient
-                                                patientId={patientId}
-                                                isOpen={isOpen}
-                                                Close={() => setOpen(false)}
-                                                deletePatientHandlerFunction={deletePatientHandlerFunction}
-                                            />
-                                                    <header className="d-flex header-bg">
-                                                        <h1 style={{ textAlign: 'center' }}>
-                                                            Patients Records
-                                                        </h1>
-                                                        <Link to='/'><button className="cta" onClick={()=>{localStorage.removeItem('Admin')}}>Logout</button></Link>
-                                            </header>
-                                
-                                            <table className='table table-hover ' >
-                                                <thead className='header-bg'>
-                                                    <tr className='text-center'>
-                                                        <th scope='col'>S/N</th>
-                                                        <th scope='col'>First Name</th>
-                                                        <th scope='col'>Last Name</th>
-                                                        <th scope='col'>Phone Number</th>
-                                                        <th scope='col'>email</th>
-                                                        <th scope='col'>Edit Patient</th>
-                                                        <th scope='col'>Delete Patient</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                      {data.map((Patient, index) => {
-                                                                        // Increment the value of index and set it as S/N value 
-                                                                        let SN = ++index;
+return (
+        createPatient ? <PatientForm  
+        closeForm={()=> setCreatePatient(false)}
+        btnDisplay="Create Patient"
+        headerDisplay="Patient Registration"
+        createPatient={createPatient}
+        PatientHandler={createPatientHandler}
+        /> :
+            <>
+                { 
+                        isUpdateOpen ? 
+                                <PatientForm 
+                                closeForm = {() => setIsUpdateOpen(false)} 
+                                Data={updatePatient} 
+                                headerDisplay="Update Patient"
+                                btnDisplay="Update Patient"
+                                updatePatientHandler={updatePatientHandler}
+                        /> : 
+                        <>
+                                    <DeletePatient
+                                        patientId={patientId}
+                                        isOpen={isOpen}
+                                        Close={() => setOpen(false)}
+                                        deletePatientHandlerFunction={deletePatientHandlerFunction}
+                                    />
+                                            <header className="d-flex header-bg">
+                                                <h1 style={{ textAlign: 'center' }}>
+                                                    Patients Records
+                                                </h1>
+                                                <Link to='/'><button className="cta" onClick={()=>{localStorage.removeItem('Admin')}}>Logout</button></Link>
+                                    </header>
+                        
+                    <table className='table table-hover ' >
+                        <thead className='header-bg'>
+                            <tr className='text-center'>
+                                <th scope='col'>S/N</th>
+                                <th scope='col'>First Name</th>
+                                <th scope='col'>Last Name</th>
+                                <th scope='col'>Phone Number</th>
+                                <th scope='col'>email</th>
+                                <th scope='col'>Edit Patient</th>
+                                <th scope='col'>Delete Patient</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map((Patient, index) => {
+                                            // Increment the value of index and set it as S/N value 
+                                            let SN = ++index;
 
-                                                                        return (
-                                                                            <tr className='text-center' key={Patient._id}>
-                                                                                <th scope='row'>
-                                                                                    {SN}
-                                                                                </th>
-                                                                                <td>
-                                                                                    {Patient.firstName}
-                                                                                </td>
-                                                                                <td>
-                                                                                    {Patient.lastName}
-                                                                                </td>
-                                                                                <td>
-                                                                                    {Patient.phoneNumber}
-                                                                                </td>
-                                                                                <td>
-                                                                                    {Patient.email}
-                                                                                </td>
-                                                                                <td>
-                                                                                    <button
-                                                                                        className='btn bg-green btn-sm'
-                                                                                        onClick={OnClickUpdatePatientHandler(Patient)}>
-                                                                                        <i className="fa fa-edit"></i>
-                                                                                    </button>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <button className='btn bg-green btn-sm '
-                                                                                        onClick={OnClickDeletePatientHandler(Patient)}
-                                                                                    >
-                                                                                        <i
-                                                                                            className="fa fa-trash" >
-                                                                                        </i>
-                                                                                    </button>
-                                                                                </td>
-                                                                            </tr>)
-                                                                    })
-                                                           }
-                                                    
-                                                </tbody>
-                                            </table>
-                                            <button
-                                                className='btn btn-danger btn-lg float'
-                                                        onClick={OnClickCreatePatientHandler}
-                                            >
-                                                <i className="fa fa-plus"></i>
-                                            </button>
-                                </>   
-                        }
+                                            return (
+                                                <tr className='text-center' key={Patient._id}>
+                                                    <th scope='row'>
+                                                        {SN}
+                                                    </th>
+                                                    <td>
+                                                        {Patient.firstName}
+                                                    </td>
+                                                    <td>
+                                                        {Patient.lastName}
+                                                    </td>
+                                                    <td>
+                                                        {Patient.phoneNumber}
+                                                    </td>
+                                                    <td>
+                                                        {Patient.email}
+                                                    </td>
+                                                    <td>
+                                                        <button
+                                                            className='btn bg-green btn-sm'
+                                                            onClick={OnClickUpdatePatientHandler(Patient)}>
+                                                            <i className="fa fa-edit"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button className='btn bg-green btn-sm '
+                                                            onClick={OnClickDeletePatientHandler(Patient)}
+                                                        >
+                                                            <i
+                                                                className="fa fa-trash" >
+                                                            </i>
+                                                        </button>
+                                                    </td>
+                                                </tr>)
+                                        })
+                                }
+                        
+                        </tbody>
+                    </table>
+                    <button
+                        className='btn btn-danger btn-lg float'
+                                onClick={OnClickCreatePatientHandler}
+                    >
+                        <i className="fa fa-plus"></i>
+                    </button>
+                </>   
+            }
 
         </>  
     )

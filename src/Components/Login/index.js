@@ -41,28 +41,36 @@ const logForm = useRef(null);
       
 
       setFormClass("formwidth mb-3");
+        try{
+            const result = await LogInAdmin(AdminDetails);
 
-      const result = await LogInAdmin(AdminDetails);
-    
-      if (result.sucess) {
-        // Set the register state  to route to Patients List 
-        
-        setAdmin(result.admin);
-    
-        // Request Patient Data an set the Loading state
-       await requestPatientsData();
+          if (result.sucess) {
+            // Set the register state  to route to Patients List 
 
-      //  Set Loading state to false and navigate to the patients Lists
+            setAdmin(result.admin);
+
+            // Request Patient Data an set the Loading state
+            await requestPatientsData();
+
+            //  Set Loading state to false and navigate to the patients Lists
+            setIsLoading(false);
+            navigate('/patients');
+
+
+          } else {
+            setErrorMessage(result.message);
+            // comment out the functions performing routing 
+           
+            setIsLoading(false);
+          }
+
+        }catch(err){
+          setErrorMessage("No internet connection");
           setIsLoading(false);
-          navigate('/patients');
-
-          
-      } else {
-        setErrorMessage(result.message);
-        // comment out the functions performing routing 
-        setIsLoading(false);
-      }
-
+        }
+            
+    
+      
     }
 
   }

@@ -6,7 +6,7 @@ const getPatients = async () => {
     .then(result => {
      return  result
     })
-    .catch(err => console.log(err));
+    .catch(err => {throw err});
 }
 
 
@@ -19,7 +19,7 @@ const createPatient =  (credentials) => {
         },
         body: JSON.stringify(credentials)
     }).then(response => response.json()).then(result => result)
-        .catch(err => console.log(err));
+        .catch(err => {throw err});
 }
 
 
@@ -46,7 +46,7 @@ const updatePatient =  (patientId,credentials) => {
         },
         body: JSON.stringify(credentials)
     }).then(response => response.json()).then(result => result)
-        .catch(err => console.log(err));
+        .catch(err => {throw err});
 }
 
 
@@ -59,7 +59,7 @@ const createAdmin =  (credentials) => {
         },
         body: JSON.stringify(credentials)
     }).then(response => response.json()).then(result => result)
-        .catch(err => console.log(err));
+        .catch(err => { throw err});
 }
 
 
@@ -73,7 +73,7 @@ const LogInAdmin =  (credentials) => {
         },
         body: JSON.stringify(credentials)
     }).then(response => response.json()).then(result => result)
-        .catch(err => console.log(err));
+        .catch(err =>{ throw err});
 }
 
 

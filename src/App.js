@@ -88,28 +88,36 @@ class App extends Component {
 
   // Function to create Patient
   createPatientHandler = async (patientData) => {
+        try{
+                let response =  await createPatient(patientData);
 
-     let response =  await createPatient(patientData);
+                    if(response.sucess){
+                      this.requestPatientsData();
+                    }
 
-     if(response.sucess){
-       this.requestPatientsData();
-     }
-
-      return response;
+                      return response;
+                
+                }catch(err){
+                  throw err;
+                }
   }
+    
 
 // function to update patient
   updatePatientHandler = async (patientId,patientData) => {
+      try{
+          let response = await updatePatient(patientId , patientData);
 
-    let response = await updatePatient(patientId , patientData);
+          if(response.sucess){
+            this.requestPatientsData();
+          }
 
-     if(response.sucess){
-       this.requestPatientsData();
-     }
+          return response;
 
-     return response;
-
-  }
+        }catch(err){
+                throw err
+        }
+}
 
 
   // function to delete Patient
