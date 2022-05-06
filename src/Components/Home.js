@@ -8,7 +8,7 @@ import MainContent from './MainContent/index.js';
 const Home = () => {
 
     return (
-        <div style={divStyle}>
+        <div>
             <Header/>
             <MainContent/>
             <Footer />
@@ -19,11 +19,11 @@ const Home = () => {
 
 }
 
-const divStyle = {
-    width: '100vw',
-    height: '100vh',
+// const divStyle = {
+//     width: '100vw',
+//     height: '100vh',
 
-}
+// }
 
 
 export default Home;

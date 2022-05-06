@@ -144,14 +144,11 @@ class  PatientForm  extends React.Component{
         if(updatePatientData !== null){
 
             let {dob} = updatePatientData;
- 
-          
-
-        
 
             dob = convertToYYYYMMDD(dob); 
 
             this.setState({...updatePatientData,dob});
+            
         }
     }
 
