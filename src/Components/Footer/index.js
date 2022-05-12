@@ -1,28 +1,29 @@
 import './index.css'
 
-const Footer = () =>{
+const Footer = () => {
     return (
-        <footer>
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm">
-                       <p className="brand"> Med Health</p>
-                    </div>
-                    <div className="col-sm">
+        <footer className="pageFooter">
+            <div className="footerWrapper">
+                <div className="PageFooterColLogo">
+                    <h3 className="pageFooterLogo">
+                        Med Health</h3>
+                </div>
+                    <div className="PageFooterCol">
                         <p>Home</p>
                         <p>Services</p>
                         <p>About</p>
-                        <p>Contact</p>
                     </div>
-                    <div className="col-sm">
-                        <p>Appoinments</p>
-                        <p>Location</p>
-                        <p>Customer Care</p>
-                        
-                        <p> &copy; 2022 Med-Health</p>
-                    </div>
+               
+                <div className="PageFooterCol">
+                    <p>Appoinments</p>
+                     <p>Contact</p>
+                    <p>Customer Care</p>
+
                 </div>
-            </div> 
+            </div>
+            <div className="footerCopy">
+                <p> &copy; 2022 Med-Health</p>
+            </div>
         </footer>
     )
 }

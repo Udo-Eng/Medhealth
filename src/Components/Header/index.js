@@ -2,20 +2,23 @@ import React from 'react';
 import './index.css';
 import {Link} from 'react-router-dom';
 
-const Header = (props) => {
-
-
-
+const Header = () => {
 
     return (
-        <header>        
-            <p className="logo">Med-Health</p>
+        <header className="PageHeader"> 
+            <div className="PageHeaderLeft">
+                <Link to="/"><p className="PageHeaderLogo">Med-Health</p></Link> 
+             </div>
+             <div className="PageHeaderRight"> 
                 <ul className="navbar-list">
-                <li className="navbar-item"><p>Home</p></li>
-                <li className="navbar-item"><p >About</p></li>
-                <li className="navbar-item" ><p>Services</p></li>
-                </ul> 
-            <Link to='/login'><button className="cta">Login</button></Link>
+                    <li className="navbar-item"><Link to="/"><span className="LinkInnerText">Home</span></Link></li>
+                    <li className="navbar-item"><Link to="/about"><span className="LinkInnerText">About</span></Link></li>
+                    <li className="navbar-item"><Link to="/services"><span className="LinkInnerText">Services</span></Link></li>
+                  </ul> 
+                <div className="PageHeaderBtn">
+                    <Link to='/login'><button className="PageHeaderBtnCta">Login</button></Link>
+                </div>
+            </div>      
         </header>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState,useRef } from 'react';
 import {Link} from 'react-router-dom';
 import './index.css';
-import Loading from '../Loading/index.js';
+import Loading from '../../Components/Loading/index.js';
 import { useNavigate } from "react-router-dom";
 
 

@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import './index.css';
-import PatientForm from '../PatientForm/index.js';
-import DeletePatient from '../DeletePatient/index.js';
+import PatientForm from '../../Components/PatientForm/index.js';
+import DeletePatient from '../../Components/DeletePatient/index.js';
 import {Link} from 'react-router-dom';
 
 

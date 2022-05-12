@@ -1,57 +1,77 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 
- header li , header p, header button{
-    font-weight: 500;
-    font-size: 1rem;
-    text-decoration: none;
-    color: #fff;
-    font-family: 'Roboto', sans-serif;
+
+.PageHeader{
+    position:sticky;
+    top:0;
+    left:0;
+    width:100vw;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #41ad2b;
+    padding: 1.5rem 2rem;
+    z-index: 1000
+   
 }
 
-.logo{
-    margin-top: 1rem;
+.PageHeaderLeft{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.PageHeaderLogo{
+    margin-left: 10px;
+    margin-top: 10px;
     color: #fff;
     font-family: 'Roboto', sans-serif;
     cursor:pointer;
     font-size: 1.5rem;
 }
 
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100vw;
+.PageHeaderRight{
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #41ad2b;
-    padding: 1.5rem 2rem;
-    height: 4rem;
+    height: 100%;
 }
 
 
 .navbar-list{
-    margin-top: 2rem;
+    height: 100%;
+    flex: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     list-style: none;
+    color:#fff;
 }
 
-.navbar-list li{
-    display: inline-block;
-    padding: 1.5rem 1.5rem;
+.navbar-item{
+    display: flex;
+    margin-top: 1rem;
+    align-items: center;
+    color: #fff;
+    transition : all 0.3s ease 0s;
 }
 
-.navbar-list li p{
-  cursor:pointer;
-  transition : all 0.3s ease 0s;
+.LinkInnerText{
+    color: #fff;
+    cursor:pointer;
+    padding: 0  1.5rem;
 }
 
 
-.navbar-list li p:hover{
-  color: #2349a8;
-  font-size: 1.2rem;
+.LinkInnerText:hover{
+    cursor:pointer;
+    color: #2349a8;
+    font-size: 1.2rem;
+    
 }
 
-header button{
+
+.PageHeaderBtnCta{
     padding: 0.5rem 1.5rem;
     cursor:pointer;
     border:none;
@@ -62,13 +82,13 @@ header button{
 }
 
 
-header button:hover{
+.PageHeaderBtnCta:hover{
     background-color:  #41ad2b;
     border: 1px solid #fff;
     padding: 0.7rem 1.8rem;
     transition : all 0.3s ease 0s;
-      color: #fff;
-     text-decoration: none;
+    color: #fff;
+    text-decoration: none;
 }
 
 
@@ -77,14 +97,14 @@ header button:hover{
         display: none;
     }
 
-    header{
+    .PageHeader{
         position:fixed;
         top:0;
         left:0;
         width:100vw;
     }
 
-   .logo{
+   .PageHeaderLogo{
         color: #fff;
         font-family: 'Roboto', sans-serif;
         cursor:pointer;
@@ -98,3 +118,9 @@ header button:hover{
 
 
 
+@media only screen and (max-width: 300px ){
+
+    .PageHeaderBtn{
+        display: none;
+    }
+}

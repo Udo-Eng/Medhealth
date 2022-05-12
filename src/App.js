@@ -1,42 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
-import Home from './Components/Home.js';
-import { createPatient, deletePatient, updatePatient, createAdmin, LogInAdmin ,getPatients} from './Components/API/index.js';
-import Login from './Components/Login/index.js';
-import Register from './Components/Register/index.js';
-import AuthMessage from './Components/AuthMessage/index.js';
-import PatientsList from './Components/PatientsList/index.js';
+import Home from './pages/Home/Home.js';
+import About from './pages/About/index.js';
+import Services from './pages/Services/index.js';
+import { SubmitContactInfo,createPatient, deletePatient, updatePatient, createAdmin, LogInAdmin ,getPatients} from './API/index.js';
+import Login from './pages/Login/index.js';
+import Register from './pages/Register/index.js';
+import AuthMessage from './pages/AuthMessage/index.js';
+import PatientsList from './pages/PatientsList/index.js';
 import { Routes, Route, BrowserRouter as Router} from 'react-router-dom';
 
-
-
-// Working with HOC in React 
-/* 
-const withConditionalFeedback =
-  ({ loadingFeedback, noDataFeedback, dataEmptyFeedback }) =>
-    (Component) =>
-      (props) => {
-        if (props.isLoading)
-          return <div>{loadingFeedback || 'Loading data.'}</div>;
-
-        if (!props.data)
-          return <div>{noDataFeedback || 'No data loaded yet.'}</div>;
-
-        if (!props.data.length)
-          return <div>{dataEmptyFeedback || 'Data is empty.'}</div>;
-
-        return <Component {...props} />;
-      };
- */
-
-      // A SAMPLE EXAMPLE OF HOC IN REACT 
-
-/* 
-const TodoList = withConditionalFeedback({
-  loadingFeedback: 'Loading Todos.',
-  noDataFeedback: 'No Todos loaded yet.',
-  dataEmptyFeedback: 'Todos are empty.',
-})(BaseTodoList); */
 
 
 
@@ -142,6 +115,10 @@ deletePatientHandler = async (patientId) => {
                   <Router>
                         <Routes>
                           <Route path='/' index element={<Home />} />
+                          <Route path='about' index element={<About />} />
+                          <Route path='services' index element={<Services
+                            SubmitContactInfo={SubmitContactInfo}
+                          />} />
                           <Route path='login' element={
                             <Login
                               createAdmin={createAdmin}
