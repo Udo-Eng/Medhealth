@@ -49,8 +49,8 @@ const About = () => {
                         <span className="teamMemberRole">Financial manager</span>
                     </div>
                     </div>     
-                <Footer />
             </div>
+             <Footer />
         </div>
     )
 }

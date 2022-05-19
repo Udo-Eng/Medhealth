@@ -1,6 +1,6 @@
 .contactFormContainer{
     width: 80%;
-    padding: 1rem;
+    /* padding: 1rem; */
 }
 
 
@@ -22,4 +22,11 @@
     align-self: center;
     text-align: center;
     border: 1px solid transparent;
+}
+
+
+@media only screen and (max-width: 300px){
+      .contactFormContainer{
+        width: 100%;   
+    }
 }

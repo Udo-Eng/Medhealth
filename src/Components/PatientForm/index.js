@@ -688,6 +688,5 @@ class  PatientForm  extends React.Component{
 }
 
 
-
 export default PatientForm;
 

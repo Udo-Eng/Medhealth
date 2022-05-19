@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Home from './pages/Home/Home.js';
+import DashBoard from './pages/Dashboard/index.js';
 import About from './pages/About/index.js';
 import Services from './pages/Services/index.js';
 import { SubmitContactInfo,createPatient, deletePatient, updatePatient, createAdmin, LogInAdmin ,getPatients} from './API/index.js';
@@ -12,8 +13,8 @@ import { Routes, Route, BrowserRouter as Router} from 'react-router-dom';
 
 
 
-
 class App extends Component {
+
 
   constructor(props) {
     super(props)
@@ -116,6 +117,7 @@ deletePatientHandler = async (patientId) => {
                         <Routes>
                           <Route path='/' index element={<Home />} />
                           <Route path='about' index element={<About />} />
+                          <Route path='dashboard' index element={<DashBoard />} />
                           <Route path='services' index element={<Services
                             SubmitContactInfo={SubmitContactInfo}
                           />} />
@@ -139,7 +141,7 @@ deletePatientHandler = async (patientId) => {
                                     deletePatientHandler={this.deletePatientHandler}
                                     updatePatientHandler={this.updatePatientHandler}
                                   />
-                                } /> )|| 
+                                } /> ) || 
                                 <Route path='patients' element={
                                  <AuthMessage />
                                 } />

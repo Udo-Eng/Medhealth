@@ -1,0 +1,15 @@
+.dashBoard{
+    padding: 1rem;
+}
+
+.dashBoardContainer{
+    display: flex;
+    
+}
+
+
+.other{
+    display: flex;
+    flex: 4;
+    background-color: blue ;
+}
