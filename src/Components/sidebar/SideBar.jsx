@@ -1,11 +1,12 @@
 import React from 'react';
 import './sidebar.css';
 import { Home, People, Person, Settings, LocalHospital, Medication } from '@mui/icons-material';
+import {Link} from 'react-router-dom';
 
 
+const logOutAdmin = () => { localStorage.removeItem('Admin') };
 
 const SideBar = () => {
-
 
     return (
         <div className="sideBar">
@@ -20,36 +21,51 @@ const SideBar = () => {
                         </div>
                         <ul className="sideBarList">
                             <li className="sideBarListItem">
+                                <Link to ='/admin'>
                                 <Home className="sideBarIcon" />
                                 <span>Home</span>
+                                </Link>
                             </li>
                             <li className="sideBarListItem">
+                            <Link to='/profile'>
                                 <Person className="sideBarIcon" />
                                 <span>Profile</span>
+                            </Link>
                             </li>
                             <li className="sideBarListItem">
+                            <Link to='/patients'>
                                 <People className="sideBarIcon" />
                                 <span>Patients</span>
+                            </Link>
                             </li>
                             <li className="sideBarListItem">
+                                <Link to='/hospital'>
                                 <LocalHospital className="sideBarIcon" />
                                 <span>Hospitals</span>
+                                </Link>
                             </li>
                             <li className="sideBarListItem">
+                               <Link to='/doctors'>
                                 <Medication className="sideBarIcon" />
                                 <span>Doctors</span>
+                                </Link>
+                            </li>
+                            <li className="sideBarListItem">
+                              <Link to='/'>
+                                  <button className="cta" onClick={logOutAdmin}>
+                                      Logout
+                                   </button>
+                              </Link>
                             </li>
                         </ul>
                     </div>
+                        <div className="sideBarDown">
+                        <Settings className="sideBarIcon" />
+                        <span className="sideBarDownText">Settings</span>
+                        </div>
                 </div>
-                <div className="sideBarDown">
-                    <Settings className="sideBarIcon" />
-                    <span>Settings</span>
-                </div>
-           
         </div>
     )
 }
-
 
 export default SideBar

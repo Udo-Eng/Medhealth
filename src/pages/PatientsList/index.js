@@ -1,12 +1,57 @@
 import React,{useState} from 'react';
 import './index.css';
 import PatientForm from '../../Components/PatientForm/index.js';
-import DeletePatient from '../../Components/DeletePatient/index.js';
-import {Link} from 'react-router-dom';
+import DeleteItem from '../../Components/DeleteItem/index.js';
+import { createPatient, deletePatient, updatePatient } from '../../API/Patients.js';
 
+
+
+// Function to create Patient
+const createPatientHandler = async (patientData) => {
+    try {
+        let response = await createPatient(patientData);
+
+        if (response.sucess) {
+            this.requestPatientsData();
+        }
+
+        return response;
+
+    } catch (err) {
+        throw err;
+    }
+}
+
+
+// function to update patient
+const updatePatientHandler = async (patientId, patientData) => {
+    try {
+        let response = await updatePatient(patientId, patientData);
+
+        if (response.sucess) {
+            this.requestPatientsData();
+        }
+
+        return response;
+
+    } catch (err) {
+        throw err
+    }
+}
+
+
+// function to delete Patient
+const deletePatientHandler = async (patientId) => {
+
+    let response = await deletePatient(patientId);
+
+    if (response.sucess) {
+        this.setState({ data: response.patients });
+    }
+}
 
 // BEGINING OF PATIENT LIST COMPONENT 
-const PatientsList = ({ data, createPatientHandler, deletePatientHandler, updatePatientHandler,requestPatientsData}) => {
+const PatientsList = ({ data,requestPatientsData}) => {
 
 
     const [createPatient,setCreatePatient] = useState(false);
@@ -66,17 +111,16 @@ return (
                                 updatePatientHandler={updatePatientHandler}
                         /> : 
                         <>
-                                    <DeletePatient
-                                        patientId={patientId}
+                                    <DeleteItem
+                                        Id={patientId}
                                         isOpen={isOpen}
                                         Close={() => setOpen(false)}
-                                        deletePatientHandlerFunction={deletePatientHandlerFunction}
+                                        deleteHandlerFunction={deletePatientHandlerFunction}
                                     />
                                             <header className="d-flex header-bg">
                                                 <h1 style={{ textAlign: 'center' }}>
                                                     Patients Records
                                                 </h1>
-                                                <Link to='/'><button className="cta" onClick={()=>{localStorage.removeItem('Admin')}}>Logout</button></Link>
                                     </header>
                         
                     <table className='table table-hover ' >

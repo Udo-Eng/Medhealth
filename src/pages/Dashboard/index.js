@@ -2,7 +2,7 @@ import React  from 'react';
 import './index.css'
 import  SideBar from '../../Components/sidebar/SideBar';
 import  TopBar from '../../Components/topbar/TopBar';
-// import PatientsList from '../PatientsList/index.js';
+import {Outlet} from 'react-router-dom';
 
 
 
@@ -14,11 +14,9 @@ const DashBoard = () => {
                   <div className="dashBoardContainer">
                       <SideBar />
                       <div className="other">
-                          <p>Other</p>
-                      </div>
-                         {/* <PatientsList /> */}
-
-                  </div>
+                        <Outlet />
+                      </div>     
+                     </div>
 
         </div>
 

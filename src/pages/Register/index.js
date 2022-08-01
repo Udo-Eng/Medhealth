@@ -3,11 +3,12 @@ import {Link} from 'react-router-dom';
 import './index.css';
 import Loading from '../../Components/Loading/index.js';
 import { useNavigate } from "react-router-dom";
+import { createAdmin} from '../../API/Admin.js';
 
 
 
 // Begining of Register  component
-const Register = ({createAdmin}) => {
+const Register = () => {
 
     // Cal the useNavigate function to return a navigator function 
     let navigate = useNavigate();
@@ -48,14 +49,16 @@ const Register = ({createAdmin}) => {
 
 
                 if (result.sucess) {
-                    //Route to the  Patient List if authentication was successful  component 
-                    // Todo this later 
+                    // reset the loading state  
                     setIsLoading(false);
+
+                    // Renavigate back to login
                     navigate('/login');
 
                 } else {
                     // Display and error message telling the person to re-fill the form and resgister again
-                    setErrorMessage("Error registering Admin Please Try again");
+                    setErrorMessage("Error creating Admin Please Try again");
+
                     setIsLoading(false);
                 }
 
@@ -67,11 +70,10 @@ const Register = ({createAdmin}) => {
 
     }
 
-    if(isLoading) return <Loading />   
+    if(isLoading) return <Loading /> ; 
 
     return (
         <div className='container '>
-            
             <h1 className='header'>Register</h1>
             {errorMessage? <div className = 'message-error' >{errorMessage}</div> : <div></div>}
             <form

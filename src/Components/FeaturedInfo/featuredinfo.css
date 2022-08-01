@@ -1,0 +1,46 @@
+.featured{
+    width: 100%;
+    margin-top: 20px;
+    display:flex;
+    justify-content: space-between;
+}
+
+
+.featuredItem{
+    flex: 1;
+    margin: 0px 1.25rem;
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    box-shadow: -2px 2px 18px -10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -2px 2px 18px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px 2px 18px -10px rgba(0,0,0,0.75);
+}
+
+.featureTitle{
+    font-size: 15px;
+}
+
+.featuredDataContainer{
+    margin: 10px 0px;
+    display: flex;
+    align-items: center;
+}
+
+
+.featuredAmount{
+    font-size:30px;
+    font-weight:  600;
+}
+
+
+
+.featuredsub{
+    font-size: 15px;
+    margin-top: 5px;
+    color: grey;
+}

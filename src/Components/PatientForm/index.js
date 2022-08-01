@@ -9,7 +9,7 @@ let  updatePatientData = null;
 
 
 // Helper function to convert Date from Database to string value  
-function convertToYYYYMMDD(d) {
+function convertToYYYYMMDD(d){
     let date = new Date(d);
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
@@ -82,11 +82,22 @@ class  PatientForm  extends React.Component{
         this.setState({age});
 
     }
+
+    // function to validate responses 
+    validateResponse = (response) => {
+        if (response.sucess) {
+            this.setIsLoading(false);
+            this.setState({ errorMessage: null });
+        } else {
+            this.setIsLoading(false);
+            this.setState({ errorMessage: response.message });
+        }
+    }
 // Function to handle form submission 
     onSubmitHandler = async (e) => {
 
         this.setIsLoading(true);
-        let { PatientHandler,createPatient,updatePatientHandler,Data} = this.props;
+        let { PatientHandler,createPatient,updatePatientHandler,Data,closeForm} = this.props;
         
                  e.preventDefault();
 
@@ -108,24 +119,12 @@ class  PatientForm  extends React.Component{
                                 if (createPatient) {
                                     let response = await PatientHandler(patientInfo);
 
-                                    if (response.sucess) {
-                                        this.setIsLoading(false);
-                                        this.setState({ errorMessage: null });
-                                    } else {
-                                        this.setIsLoading(false);
-                                        this.setState({ errorMessage: response.message });
-                                    }
+                                    this.validateResponse(response);
                                 } else {
                                     let id = Data._id;
                                     let response = await updatePatientHandler(id, patientInfo);
 
-                                    if (response.sucess) {
-                                        this.setIsLoading(false);
-                                        this.setState({ errorMessage: null });
-                                    } else {
-                                        this.setIsLoading(false);
-                                        this.setState({ errorMessage: response.message });
-                                    }
+                                    this.validateResponse(response);
                                 }
                             } catch(err){
                                 this.setState({ errorMessage:'No internet connection'});
@@ -133,7 +132,7 @@ class  PatientForm  extends React.Component{
                             } 
 
                      // function to close form;
-                        this.props.closeForm();  
+                    closeForm();  
 
                 }
      
@@ -209,7 +208,7 @@ class  PatientForm  extends React.Component{
                                 name='hospital'
                                 id='hospital'
                                 placeholder='Select a hospital'
-                                className='form-select'
+                                className='form-vselect'
                                 value={hospital}
                                 onChange={this.handleChange}
                                 required

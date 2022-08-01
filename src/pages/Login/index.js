@@ -3,12 +3,13 @@ import {Link} from 'react-router-dom';
 import './index.css';
 import Loading from '../../Components/Loading/index.js';
 import { useNavigate } from "react-router-dom";
+import { LogInAdmin } from '../../API/Admin.js';
 
 
 
 
 // Begining of Login component
-const Login = ({ LogInAdmin, setAdmin,requestPatientsData}) => {
+const Login = ({ setAdmin,requestPatientsData}) => {
 
 
 
@@ -35,11 +36,8 @@ const logForm = useRef(null);
 
     if (!logForm.current.checkValidity()) {
       
-
       setFormClass(" was-validated formwidth mb-3");
     } else {
-      
-
       setFormClass("formwidth mb-3");
         try{
             const result = await LogInAdmin(AdminDetails);
@@ -54,7 +52,9 @@ const logForm = useRef(null);
 
             //  Set Loading state to false and navigate to the patients Lists
             setIsLoading(false);
-            navigate('/patients');
+
+            // navigate to dashboard page
+            navigate('/dashboard');
 
 
           } else {
@@ -68,8 +68,6 @@ const logForm = useRef(null);
           setErrorMessage("No internet connection");
           setIsLoading(false);
         }
-            
-    
       
     }
 

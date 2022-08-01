@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom';
 import ImageSource from '../../assets/Health-Professional-Image.jpg';
 import Loading from '../../Components/Loading/index.js';
 import { useNavigate } from "react-router-dom";
+import { SubmitContactInfo } from '../../API/Home.js';
 
 
 
 
-const Services = ({ SubmitContactInfo}) => {
+
+const Services = () => {
 
     const contactForm = useRef(null);
 

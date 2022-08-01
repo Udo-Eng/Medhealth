@@ -46,6 +46,7 @@ font-size: 1.2rem;
 .bg-green{
     background-color: #41ad2b;
     color:#fff;
+    width: 100%;
 }
 
 #pointer{

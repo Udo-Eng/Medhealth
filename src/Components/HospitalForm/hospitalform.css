@@ -1,0 +1,114 @@
+
+fieldset{
+    border: 1px  solid #fff;
+    padding:1rem;
+    margin-bottom:1rem;
+    border-radius: 0.3rem;
+}
+
+.formwidth{
+align-self: center;
+}
+
+.header{
+    height: 20vh;
+    align-self: center;
+    background-color: #41ad2b;
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 1.2rem  0;
+}
+
+
+#reg-form{
+    border: 1px solid #fff;
+    padding: 2.5rem;
+    border-radius: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+#reg-form p {
+    font-size: 1.2rem;
+}
+
+form button {
+  margin : 0.8rem auto;
+}
+
+.reg-container h2  {
+    text-align: center;
+}
+
+.reg-container p  {
+    text-align: center;
+}
+
+.reg-container{
+    width: 100vw;
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.bg-green{
+    background-color:#41ad2b ;
+    color:#fff;
+}
+
+
+.bg-green:hover{
+    background-color:#41ad2b ;
+    color:#fff;
+}
+
+.pointer{
+    cursor: pointer;
+    color: lightskyblue;
+}
+
+.message-error{
+    width: 40rem;
+    color: #fff;
+    background: #c51244 !important;
+    padding: 10px !important;
+    border-radius: 0 !important;
+    position: relative; 
+    display: inline-block !important;
+    box-shadow: 1px 1px 1px #aaaaaa;
+    margin: 10px;
+    align-self: center;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+
+@media only screen and (max-width : 480px ){
+            .formwidth{
+                align-self: center;
+                width: 28rem;
+                }
+                .header{
+                    width: 28rem;
+                    height: 20vh;
+                    align-self: center;
+                }
+        }
+
+        @media only screen and (max-width : 420px ){
+            .formwidth{
+                align-self: center;
+                width: 20rem;
+                }
+                .header{
+                    width: 20rem;
+                    height: 10vh;
+                    align-self: center;
+                    text-align: center;
+                    padding: 0.6rem 0rem;  
+                }
+}
